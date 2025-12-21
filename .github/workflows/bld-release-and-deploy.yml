@@ -5,16 +5,19 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
-  Deploy:
-    name: Deploy Build Environment
+  deploy-bld:
+    name: Build, Release & Deploy to BLD
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -22,20 +25,24 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
-        # TODO: inject .env as a oner
-      - name: Inject API Keys into .env
+      - name: Inject API keys into .env
         run: |
           echo "VITE_GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
           echo "VITE_GOOGLE_ANALYTICS_TRACKING_ID=${{ secrets.GOOGLE_ANALYTICS_TRACKING_ID }}" >> .env
 
-      - name: Build Project
+      - name: Build project
         run: npm run build
 
-      - name: Copy .htaccess to Build Directory
+      - name: Copy .htaccess to dist
         run: cp .htaccess dist/
+
+      - name: Create GitHub Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to BLD
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
