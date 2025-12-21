@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# Food Facts Friends
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <img src="public/fff_logo.svg" alt="Food Facts Friends Logo" width="300">
+</div>
 
-Currently, two official plugins are available:
+## Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+- **PRD**: [https://www.foodfactsfriends.org.uk/](https://www.foodfactsfriends.org.uk/)
+- **BLD**: [https://bld.foodfactsfriends.org.uk/](https://bld.foodfactsfriends.org.uk/)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## About
 
-## Expanding the ESLint configuration
+Food Facts Friends Community Hub is here to help anyone who is facing hunger due to crisis. Whether it's parents skipping meals to feed their children, using any money to pay the rent, or facing the difficult choice of 'heat or eat,' we are here to support you. We are a Community Hub, supported by local businesses and individuals, working to prevent poverty and hunger across Midlothian.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Website Structure
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Home**: Introduction to our community and mission.
+- **About**: Learn more about our story and values.
+- **Donate**: Support our mission by making a contribution.
+- **Contact**: Get in touch with us for any inquiries or assistance.
+- **Our Supporters**: Acknowledging the businesses and individuals who support us.
+- **Community Hub**: Updates, news, and important announcements.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## How to Donate
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Support our mission by making a donation. Every contribution helps us continue our work in fighting hunger and supporting those in need.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Opening Hours
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Check our website for our latest opening hours to find the best time to visit us.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Latest News
+
+Stay updated with our latest events, community stories, and important announcements.
+
+## Where to Find Us
+
+[Open in Google Maps](https://www.google.com/maps/place/Food+Facts+Friends/data=!4m2!3m1!1s0x0:0x21e3237b483518ef?sa=X&ved=1t:2428&ictx=111)
+
+## Project Setup
+
+This project is built using React and TypeScript with Vite. To set it up locally:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/food-facts-friends.git
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Run the development server:
+   ```sh
+   npm run dev
+   ```
+4. Open `http://localhost:5173/` in your browser.
+
+## Contributing
+
+We welcome contributions! Feel free to open issues or submit pull requests.
