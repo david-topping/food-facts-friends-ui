@@ -22,7 +22,7 @@ const isServiceOpen = (
     (item) => item.day.toLowerCase() === dayOfWeek.toLowerCase()
   );
 
-  for (let { open, close } of todayHours) {
+  for (const { open, close } of todayHours) {
     const openTime = convertToMinutes(open);
     const closeTime = convertToMinutes(close);
 

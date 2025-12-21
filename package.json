@@ -7,9 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "lint:fix": "eslint . --fix",
+    "preview": "vite preview"
   },
   "homepage": "https://davidtopping02.github.io/food-facts-and-friends",
   "dependencies": {
