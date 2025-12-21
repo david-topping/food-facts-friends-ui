@@ -20,6 +20,11 @@ jobs:
       name: prod
 
     steps:
+      - name: Await PROD approval
+        run: |
+          echo "Deploying to PROD"
+          test -n "${{ vars.GOOGLE_ANALYTICS_ID }}"
+
       - name: Checkout release tag
         uses: actions/checkout@v4
         with:
