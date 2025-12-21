@@ -1,4 +1,4 @@
-# Food Facts and Friends
+# Food Facts Friends
 
 <div align="center">
   <img src="public/fff_logo.svg" alt="Food Facts and Friends Logo" width="300">
