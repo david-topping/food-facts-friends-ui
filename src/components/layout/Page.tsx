@@ -5,7 +5,7 @@ type PageProps = {
     maxWidth?: "xs" | "sm" | "md" | "lg" | "xl";
 };
 
-export const Page = ({ children, maxWidth = "lg" }: PageProps) => {
+export const Page = ({ children, maxWidth = "xl" }: PageProps) => {
     return (
         <Container
             component="main"

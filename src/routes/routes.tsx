@@ -1,17 +1,29 @@
-import { createBrowserRouter } from "react-router-dom";
-// import { MainLayout } from "./layouts/MainLayout";
-// import { ErrorPage } from "./errors/ErrorPage";
-import { HomePage } from "../features/home/HomePage";
+import { HomePage } from "../features/pages/home/HomePage";
 
-export const router = createBrowserRouter([
-    {
-        // element: <MainLayout />,
-        // errorElement: <ErrorPage />,
-        children: [
-            {
-                path: "/",
-                element: <HomePage />,
-            },
-        ],
-    },
-]);
+export type AppRoute = {
+  path: string;
+  label: string;
+  element: React.ReactNode;
+  showInNav?: boolean;
+};
+
+export const APP_ROUTES: AppRoute[] = [
+  {
+    path: "/",
+    label: "Home",
+    element: <HomePage />,
+    showInNav: true,
+  },
+  {
+    path: "/about",
+    label: "About",
+    element: <div>About</div>,
+    showInNav: true,
+  },
+  {
+    path: "/contact",
+    label: "Contact",
+    element: <div>Contact</div>,
+    showInNav: true,
+  },
+];
