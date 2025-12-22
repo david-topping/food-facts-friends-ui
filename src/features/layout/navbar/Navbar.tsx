@@ -13,7 +13,13 @@ export default function Navbar({ isCollapsed, onMenuOpen }: NavbarProps) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="absolute">
-        <Toolbar>
+        <Toolbar
+          sx={{
+            minHeight: 80,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           {!isCollapsed && <DesktopNav />}
           {isCollapsed && <MobileNav onMenuOpen={onMenuOpen} />}
         </Toolbar>
