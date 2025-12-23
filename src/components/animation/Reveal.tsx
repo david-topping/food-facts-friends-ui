@@ -1,4 +1,4 @@
-import { Slide, type SlideProps } from "@mui/material";
+import { Box, Slide, type SlideProps } from "@mui/material";
 import type { ReactElement } from "react";
 
 type RevealProps = Omit<SlideProps, "in" | "timeout"> & {
@@ -14,7 +14,7 @@ export default function Reveal({
 }: RevealProps) {
   return (
     <Slide in timeout={timeout} direction={direction} {...props}>
-      {children}
+      <Box>{children}</Box>
     </Slide>
   );
 }

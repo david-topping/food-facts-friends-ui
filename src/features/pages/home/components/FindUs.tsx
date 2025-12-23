@@ -12,7 +12,7 @@ type FindUsProps = {
   coordinates: Coordinates;
 };
 
-export function FindUs({ title = "Where you can find us", coordinates }: FindUsProps) {
+export function FindUs({ title, coordinates }: FindUsProps) {
   return (
     <Stack spacing={4}>
       <Reveal>

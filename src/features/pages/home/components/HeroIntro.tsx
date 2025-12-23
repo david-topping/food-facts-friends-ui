@@ -26,14 +26,12 @@ export function HomeHeroIntro({ title, subText, logo }: Props) {
           </Box>
 
           <Reveal>
-            <Typography color="text.secondary">{subText}</Typography>
+            <Typography>{subText}</Typography>
           </Reveal>
         </Stack>
 
         <Reveal direction="left">
-          <Box flexShrink={0}>
-            <BrandLogo src={logo} />
-          </Box>
+          <BrandLogo src={logo} />
         </Reveal>
       </Stack>
     </Stack>
