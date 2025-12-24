@@ -6,9 +6,16 @@ type NavLinkProps = {
   label: string;
   onClick?: () => void;
   variant?: TypographyProps["variant"];
+  active?: boolean;
 };
 
-export default function NavLink({ to, label, onClick, variant = "button" }: NavLinkProps) {
+export default function NavLink({
+  to,
+  label,
+  onClick,
+  variant = "button",
+  active = false,
+}: NavLinkProps) {
   return (
     <Typography
       component={RouterLink}
@@ -19,6 +26,7 @@ export default function NavLink({ to, label, onClick, variant = "button" }: NavL
         color: "primary.contrastText",
         cursor: "pointer",
         textDecoration: "none",
+        fontWeight: active ? "bold" : "normal",
       }}
     >
       {label}
