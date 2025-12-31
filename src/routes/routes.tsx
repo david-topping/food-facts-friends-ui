@@ -1,3 +1,4 @@
+import { DonatePage } from "../features/pages/donate/DonatePage";
 import { HomePage } from "../features/pages/home/HomePage";
 
 export type AppRoute = {
@@ -21,15 +22,15 @@ export const APP_ROUTES: AppRoute[] = [
     showInNav: true,
   },
   {
-    path: "/donate",
-    label: "How to Donate",
-    element: <div>Donate</div>,
-    showInNav: true,
-  },
-  {
     path: "/our-supporters",
     label: "Our Supporters",
     element: <div>Our Supporters</div>,
+    showInNav: true,
+  },
+  {
+    path: "/donate",
+    label: "How to Donate",
+    element: <DonatePage />,
     showInNav: true,
   },
   {
