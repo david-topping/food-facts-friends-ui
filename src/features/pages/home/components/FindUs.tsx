@@ -16,7 +16,7 @@ export function FindUs({ title, coordinates }: FindUsProps) {
   return (
     <Stack spacing={4}>
       <Reveal>
-        <Typography color="text.secondary" variant="h4" align="center">
+        <Typography variant="h4" align="center">
           {title}
         </Typography>
       </Reveal>

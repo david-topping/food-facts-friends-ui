@@ -6,7 +6,7 @@ type HeroSectionProps = {
   height?: ResponsiveStyleValue<string | number>;
 };
 
-export const HeroImage = ({ image, height = { xs: "30vh" } }: HeroSectionProps) => {
+export const HeroImage = ({ image, height = "30vh" }: HeroSectionProps) => {
   return (
     <Box
       component="section"
