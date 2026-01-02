@@ -1,5 +1,6 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
 import { GLOBAL_CONTENT } from "../../../content/global.content";
+import SocialMediaIcons from "./components/SocialMediaIcons";
 
 export default function Footer() {
   return (
@@ -14,13 +15,21 @@ export default function Footer() {
         textAlign: "center",
       }}
     >
-      <Typography variant="body2" color="primary.contrastText">
-        {GLOBAL_CONTENT.copyright(new Date().getFullYear())}
-      </Typography>
+      <Stack spacing={2} alignItems="center">
+        <SocialMediaIcons
+          facebookUrl={GLOBAL_CONTENT.socialMedia.facebook}
+          linkedinUrl={GLOBAL_CONTENT.socialMedia.linkedin}
+          instagramUrl={GLOBAL_CONTENT.socialMedia.instagram}
+        />
 
-      <Typography variant="body2" color="primary.contrastText" sx={{ mt: 1, opacity: 0.85 }}>
-        {GLOBAL_CONTENT.charityNumber}
-      </Typography>
+        <Typography variant="body2" color="primary.contrastText">
+          {GLOBAL_CONTENT.copyright(new Date().getFullYear())}
+        </Typography>
+
+        <Typography variant="body2" color="primary.contrastText" sx={{ opacity: 0.85 }}>
+          {GLOBAL_CONTENT.charityNumber}
+        </Typography>
+      </Stack>
     </Box>
   );
 }
