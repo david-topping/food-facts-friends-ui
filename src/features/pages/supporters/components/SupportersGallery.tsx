@@ -14,12 +14,22 @@ export const SupportersGallery = ({ logos }: SupportersGalleryProps) => {
           md: "repeat(3, 1fr)",
         },
         gap: 2,
+        overflow: "hidden",
       }}
     >
       {logos.map((logo, index) => (
-        <Fade in timeout={400} style={{ transitionDelay: `${index * 100}ms` }} key={logo}>
+        <Fade
+          key={logo}
+          in
+          timeout={400}
+          style={{
+            transitionDelay: `${index * 100}ms`,
+          }}
+        >
           <Box
             sx={{
+              width: "100%",
+              height: "100%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -31,6 +41,7 @@ export const SupportersGallery = ({ logos }: SupportersGalleryProps) => {
               src={logo}
               alt="Supporter logo"
               sx={{
+                width: "100%",
                 maxWidth: "100%",
                 maxHeight: 150,
                 objectFit: "contain",
