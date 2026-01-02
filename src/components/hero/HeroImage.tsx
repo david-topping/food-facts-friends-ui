@@ -9,7 +9,7 @@ type HeroSectionProps = {
 
 export const HeroImage = ({
   image,
-  height = { xs: "30dvh", md: "25dvh" },
+  height = { xs: "30vh", md: "2vh" },
   children,
 }: HeroSectionProps) => {
   return (

@@ -15,7 +15,7 @@ export function MainLayout() {
   return (
     <>
       <AnalyticsListener />
-      <Box display="flex" flexDirection="column" minHeight="100dvh">
+      <Box display="flex" flexDirection="column" minHeight="100vh">
         <Navbar isCollapsed={isMobile} onMenuOpen={() => setIsMenuOpen(true)} />
 
         <MobileMenuOverlay open={isMenuOpen} onClose={() => setIsMenuOpen(false)} />

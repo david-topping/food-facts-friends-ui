@@ -19,7 +19,7 @@ export const HeroSplit = ({
       component="section"
       sx={{
         width: "100%",
-        height: { xs: "auto", md: "35dvh" },
+        height: { xs: "auto", md: "35vh" },
         display: "flex",
         flexDirection: { xs: "column", md: imageSide === "left" ? "row" : "row-reverse" },
         bgcolor: sectionBg[variant],
