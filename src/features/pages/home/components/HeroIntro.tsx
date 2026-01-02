@@ -10,22 +10,40 @@ type Props = {
 
 export function HomeHeroIntro({ title, subText, logo }: Props) {
   return (
-    <Stack spacing={1}>
-      <Box sx={{ display: { xs: "block", md: "none" } }}>
+    <Box>
+      {/* Mobile Layout */}
+      <Stack spacing={1} sx={{ display: { xs: "block", sm: "none" } }}>
         <Reveal>
-          <Typography variant="h2">{title}</Typography>
+          <Typography color="text.secondary" variant="h2">
+            {title}
+          </Typography>
         </Reveal>
-      </Box>
 
-      <Stack direction="row" spacing={3} alignItems="center" justifyContent="space-between">
+        <Stack direction="row" spacing={3} alignItems="center" justifyContent="space-between">
+          <Reveal>
+            <Typography flex={1}>{subText}</Typography>
+          </Reveal>
+
+          <Reveal direction="left">
+            <BrandLogo src={logo} />
+          </Reveal>
+        </Stack>
+      </Stack>
+
+      {/* Desktop Layout */}
+      <Stack
+        direction="row"
+        spacing={3}
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ display: { xs: "none", sm: "flex" } }}
+      >
         <Stack spacing={2} flex={1} maxWidth={600}>
-          <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <Reveal>
-              <Typography color="text.secondary" variant="h2">
-                {title}
-              </Typography>
-            </Reveal>
-          </Box>
+          <Reveal>
+            <Typography color="text.secondary" variant="h2">
+              {title}
+            </Typography>
+          </Reveal>
 
           <Reveal>
             <Typography>{subText}</Typography>
@@ -36,6 +54,6 @@ export function HomeHeroIntro({ title, subText, logo }: Props) {
           <BrandLogo src={logo} />
         </Reveal>
       </Stack>
-    </Stack>
+    </Box>
   );
 }
