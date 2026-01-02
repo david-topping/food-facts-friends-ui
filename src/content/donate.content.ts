@@ -6,8 +6,7 @@ export const DONATE_CONTENT = {
   },
   donationImpact: {
     title: "Every Contribution Counts",
-    description:
-      "Whether you donate money, food, or time, you're directly helping families in our community. Here's the impact we've made together:",
+    description: "Here's the impact we've made together",
     stats: [
       {
         value: "1,200+",

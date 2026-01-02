@@ -35,7 +35,7 @@ export function DonationImpact({ content }: DonationImpactProps) {
       </Reveal>
 
       <Reveal direction="left">
-        <Stack direction={{ xs: "column", md: "row" }} spacing={4} justifyContent="center" mt={2}>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={3} justifyContent="center">
           {stats.map((stat) => (
             <StatisticBox key={stat.label} value={stat.value} label={stat.label} />
           ))}

@@ -1,5 +1,8 @@
 import { DonatePage } from "../features/pages/donate/DonatePage";
 import { HomePage } from "../features/pages/home/HomePage";
+import { SupportersPage } from "../features/pages/supporters/SupportersPage";
+import { ContactPage } from "../features/pages/contact/ContactPage";
+import { ServicesPage } from "../features/pages/services/ServicesPage";
 
 export type AppRoute = {
   path: string;
@@ -18,13 +21,13 @@ export const APP_ROUTES: AppRoute[] = [
   {
     path: "/services",
     label: "What We Offer",
-    element: <div>Services</div>,
+    element: <ServicesPage />,
     showInNav: true,
   },
   {
-    path: "/our-supporters",
+    path: "/supporters",
     label: "Our Supporters",
-    element: <div>Our Supporters</div>,
+    element: <SupportersPage />,
     showInNav: true,
   },
   {
@@ -36,7 +39,7 @@ export const APP_ROUTES: AppRoute[] = [
   {
     path: "/contact",
     label: "Contact Us",
-    element: <div>Contact</div>,
+    element: <ContactPage />,
     showInNav: true,
   },
 ];
