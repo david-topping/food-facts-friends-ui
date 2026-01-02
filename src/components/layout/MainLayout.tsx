@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useState } from "react";
 
@@ -14,11 +14,13 @@ export function MainLayout() {
 
   return (
     <>
+      <ScrollRestoration />
       <AnalyticsListener />
       <Box display="flex" flexDirection="column" minHeight="100vh">
         <Navbar isCollapsed={isMobile} onMenuOpen={() => setIsMenuOpen(true)} />
 
         <MobileMenuOverlay open={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+
         <Outlet />
         <Footer />
       </Box>

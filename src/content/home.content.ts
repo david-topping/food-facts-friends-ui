@@ -18,8 +18,8 @@ export const HOME_CONTENT = {
   findUs: {
     title: "Where you can find us",
     location: {
-      lat: 55.83,
-      lng: -3.22,
+      lat: 55.82806634557245,
+      lng: -3.2227402445162725,
     },
   },
 };
