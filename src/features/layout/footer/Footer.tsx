@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { FOOTER_CONTENT } from "../../../content/footer.content";
+import { GLOBAL_CONTENT } from "../../../content/global.content";
 
 export default function Footer() {
   return (
@@ -15,11 +15,11 @@ export default function Footer() {
       }}
     >
       <Typography variant="body2" color="primary.contrastText">
-        {FOOTER_CONTENT.copyright(new Date().getFullYear())}
+        {GLOBAL_CONTENT.copyright(new Date().getFullYear())}
       </Typography>
 
       <Typography variant="body2" color="primary.contrastText" sx={{ mt: 1, opacity: 0.85 }}>
-        {FOOTER_CONTENT.charityNumber}
+        {GLOBAL_CONTENT.charityNumber}
       </Typography>
     </Box>
   );

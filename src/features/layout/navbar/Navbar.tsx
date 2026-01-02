@@ -10,10 +10,10 @@ type NavbarProps = {
 
 export default function Navbar({ isCollapsed, onMenuOpen }: NavbarProps) {
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" elevation={0}>
       <Toolbar
         sx={{
-          minHeight: 80,
+          minHeight: 100,
           display: "flex",
           alignItems: "center",
         }}

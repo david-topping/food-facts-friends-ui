@@ -3,10 +3,11 @@ import { Box } from "@mui/material";
 type BrandLogoProps = {
   src: string;
   alt?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
 };
 
 const sizeMap = {
+  xs: { xs: 70, md: 140 },
   sm: { xs: 120, md: 140 },
   md: { xs: 140, md: 180 },
   lg: { xs: 180, md: 220 },

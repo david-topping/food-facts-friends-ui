@@ -27,12 +27,8 @@ export default function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayPr
           }}
         >
           <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 4 }}>
-            <IconButton
-              onClick={onClose}
-              sx={{ color: "primary.contrastText" }}
-              aria-label="Close menu"
-            >
-              <CloseIcon />
+            <IconButton onClick={onClose} sx={{ color: "primary.contrastText" }}>
+              <CloseIcon sx={{ fontSize: "2.5rem" }} />
             </IconButton>
           </Box>
 

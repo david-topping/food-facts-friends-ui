@@ -1,16 +1,15 @@
-import { HeroSplit } from "../../../components/hero/HeroSplit";
 import { Page } from "../../../components/layout/Page";
-import donateHero from "../../../assets/images/hero/donate_hero.webp";
+import { HeroText } from "../../../components/hero/HeroText";
+import { DONATE_CONTENT } from "../../../content/donate.content";
 
 export const DonatePage = () => {
   return (
     <Page>
-      <HeroSplit
-        image={donateHero}
-        imageSide="right"
-        title={"How you can give to Food Facts Friends."}
-        variant="light"
-      ></HeroSplit>
+      <HeroText
+        title={DONATE_CONTENT.hero.title}
+        subtitle={DONATE_CONTENT.hero.subTitle}
+        variant="dark"
+      ></HeroText>
     </Page>
   );
 };
