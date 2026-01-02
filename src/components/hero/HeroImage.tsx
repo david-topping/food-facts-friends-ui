@@ -7,11 +7,7 @@ type HeroSectionProps = {
   children?: React.ReactNode;
 };
 
-export const HeroImage = ({
-  image,
-  height = { xs: "30vh", md: "2vh" },
-  children,
-}: HeroSectionProps) => {
+export const HeroImage = ({ image, height = { xs: "30vh" }, children }: HeroSectionProps) => {
   return (
     <Box
       component="section"
