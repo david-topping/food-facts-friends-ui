@@ -13,7 +13,9 @@ export function HomeHeroIntro({ title, subText, logo }: Props) {
     <Box>
       <Stack spacing={1} sx={{ display: { xs: "block", sm: "none" } }}>
         <Reveal>
-          <Typography variant="h2">{title}</Typography>
+          <Typography color="text.secondary" variant="h2">
+            {title}
+          </Typography>
         </Reveal>
 
         <Stack direction="row" spacing={3} alignItems="center" justifyContent="space-between">
@@ -36,7 +38,9 @@ export function HomeHeroIntro({ title, subText, logo }: Props) {
       >
         <Stack spacing={2} flex={1} maxWidth={600}>
           <Reveal>
-            <Typography variant="h2">{title}</Typography>
+            <Typography color="text.secondary" variant="h2">
+              {title}
+            </Typography>
           </Reveal>
 
           <Reveal>
