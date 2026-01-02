@@ -7,13 +7,13 @@ type HeroTextProps = {
   variant?: SectionVariant;
 };
 
-export const HeroText = ({ title, subtitle, variant = "default" }: HeroTextProps) => {
+export const HeroText = ({ title, subtitle, variant = "dark" }: HeroTextProps) => {
   return (
     <Box
       component="section"
       sx={{
         width: "100%",
-        minHeight: { xs: "30vh", md: "35dvh" },
+        minHeight: { xs: "25vh" },
         display: "flex",
         alignItems: "center",
         bgcolor: sectionBg[variant],
@@ -32,7 +32,6 @@ export const HeroText = ({ title, subtitle, variant = "default" }: HeroTextProps
         <Typography
           sx={{
             typography: { xs: "body1", md: "h6" },
-            fontStyle: "italic",
             mx: "auto",
             mt: 2,
           }}
