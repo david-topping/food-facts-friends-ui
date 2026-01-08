@@ -11,7 +11,6 @@ export default function Footer() {
         py: 6,
         px: 2,
         bgcolor: "primary.main",
-        borderTop: 1,
         textAlign: "center",
       }}
     >
