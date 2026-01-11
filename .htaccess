@@ -1,13 +1,12 @@
 Options -MultiViews
 RewriteEngine On
+RewriteBase /
 
-# --- Allow API requests to pass through ---
-RewriteRule ^api/ - [L]
+# If the request is for /gallery, do NOT redirect to index.html
+RewriteCond %{REQUEST_URI} ^/gallery [NC]
+RewriteRule .* - [L]
 
-# --- Serve existing files normally ---
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# --- React SPA fallback ---
+# Redirect all other non-file and non-directory requests to index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [L]
