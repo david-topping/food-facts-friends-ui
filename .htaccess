@@ -1,15 +1,13 @@
 Options -MultiViews
 RewriteEngine On
-RewriteBase /
 
-# --- DO NOT rewrite API requests ---
-RewriteCond %{REQUEST_URI} ^/api [NC]
-RewriteRule .* - [L]
+# --- Allow API requests to pass through ---
+RewriteRule ^api/ - [L]
 
-# --- DO NOT rewrite real files or directories ---
+# --- Serve existing files normally ---
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule .* - [L]
+RewriteRule ^ - [L]
 
-# --- SPA fallback ---
-RewriteRule .* index.html [L]
+# --- React SPA fallback ---
+RewriteRule ^ index.html [L]
