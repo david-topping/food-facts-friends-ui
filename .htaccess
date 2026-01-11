@@ -2,11 +2,14 @@ Options -MultiViews
 RewriteEngine On
 RewriteBase /
 
-# If the request is for /gallery, do NOT redirect to index.html
-RewriteCond %{REQUEST_URI} ^/gallery [NC]
+# --- DO NOT rewrite API requests ---
+RewriteCond %{REQUEST_URI} ^/api [NC]
 RewriteRule .* - [L]
 
-# Redirect all other non-file and non-directory requests to index.html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [L]
+# --- DO NOT rewrite real files or directories ---
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule .* - [L]
+
+# --- SPA fallback ---
+RewriteRule .* index.html [L]
