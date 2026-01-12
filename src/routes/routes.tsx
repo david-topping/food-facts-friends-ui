@@ -1,4 +1,5 @@
 import { DonatePage } from "../features/pages/donate/DonatePage";
+import { DonationSuccessPage } from "../features/pages/donate/DonationSuccessPage";
 import { HomePage } from "../features/pages/home/HomePage";
 import { SupportersPage } from "../features/pages/supporters/SupportersPage";
 import { ContactPage } from "../features/pages/contact/ContactPage";
@@ -35,6 +36,12 @@ export const APP_ROUTES: AppRoute[] = [
     label: "How to Donate",
     element: <DonatePage />,
     showInNav: true,
+  },
+  {
+    path: "/donation/success",
+    label: "How to Donate",
+    element: <DonationSuccessPage />,
+    showInNav: false,
   },
   {
     path: "/contact",

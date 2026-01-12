@@ -42,6 +42,8 @@ jobs:
         run: |
           echo "VITE_GOOGLE_MAPS_API_KEY=${{ vars.GOOGLE_MAPS_API_KEY }}" >> .env.bld
           echo "VITE_GOOGLE_ANALYTICS_ID=${{ vars.GOOGLE_ANALYTICS_ID }}" >> .env.bld
+          echo "VITE_STRIPE_PUBLISHABLE_KEY=${{ vars.STRIPE_PUBLISHABLE_KEY }}" >> .env.bld
+          echo "VITE_FFF_API_BASE_URL=${{ vars.FFF_API_BASE_URL }}" >> .env.bld
 
       - name: Build project
         run: npm run build -- --mode bld

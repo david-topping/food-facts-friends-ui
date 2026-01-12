@@ -1,81 +1,209 @@
-import { Stack, Typography, Paper, Button, Divider } from "@mui/material";
-import { InstructionCard } from "../../../../components/instructionCard/InstructionCard";
-import { InstructionRow } from "../../../../components/InstructionRow/InstructionRow";
+import { useState } from "react";
+import {
+  Stack,
+  Typography,
+  Paper,
+  Button,
+  Divider,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import { Elements } from "@stripe/react-stripe-js";
+import { PaymentElement } from "@stripe/react-stripe-js";
+
+import { stripePromise } from "../../../../stripe/stripe";
+import { elementsOptions } from "../../../../stripe/elementsOptions";
+import { useCreateDonation } from "../../../../hooks/useCreateDonation";
+import { useConfirmDonation } from "../../../../hooks/useConfirmDonation";
+
+/* ------------------------------------------------------------------ */
+/* Types */
+/* ------------------------------------------------------------------ */
 
 type FinancialDonationProps = {
   content: {
     title: string;
-    methods: readonly {
-      id: string;
-      title: string;
-      icon: React.ElementType;
-      rows?: readonly {
-        label: string;
-        value: string;
-      }[];
-      content?: readonly {
-        type: "text" | "strong";
-        value: string;
-      }[];
-    }[];
-    actions: readonly {
-      label: string;
-      variant: "contained" | "outlined";
-      href: string;
-    }[];
   };
 };
 
-export function FinancialDonation({ content }: FinancialDonationProps) {
+/* ------------------------------------------------------------------ */
+/* Shared layout */
+/* ------------------------------------------------------------------ */
+
+function ContentColumn({ children }: { children: React.ReactNode }) {
+  return <Stack spacing={3}>{children}</Stack>;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stripe payment step */
+/* ------------------------------------------------------------------ */
+
+function StripePaymentForm({ amount }: { amount: number }) {
+  const { confirm, loading } = useConfirmDonation();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!loading) await confirm();
+  };
+
   return (
-    <Stack spacing={4} alignItems="center" sx={{ width: "100%" }}>
-      <Stack spacing={2} alignItems="center">
-        <Typography variant="h2" align="center">
-          {content.title}
-        </Typography>
+    <form onSubmit={handleSubmit}>
+      <ContentColumn>
+        <PaymentElement />
+
+        <Button type="submit" variant="contained" size="large" fullWidth disabled={loading}>
+          {loading ? "Processing…" : `Donate £${amount}`}
+        </Button>
+      </ContentColumn>
+    </form>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Donation details step */
+/* ------------------------------------------------------------------ */
+
+function DonationDetailsForm(props: {
+  amount: number;
+  setAmount: (v: number) => void;
+  email: string;
+  setEmail: (v: string) => void;
+  giftAid: boolean;
+  setGiftAid: (v: boolean) => void;
+  loading: boolean;
+  onContinue: () => void;
+}) {
+  const { amount, setAmount, email, setEmail, giftAid, setGiftAid, loading, onContinue } = props;
+
+  const [touched, setTouched] = useState(false);
+
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isAmountValid = amount >= 1;
+
+  return (
+    <ContentColumn>
+      {/* Preset amounts */}
+      <Stack direction="row" spacing={2} justifyContent="center">
+        {[5, 10, 20, 50].map((preset) => (
+          <Button
+            key={preset}
+            variant={amount === preset ? "contained" : "outlined"}
+            onClick={() => setAmount(preset)}
+          >
+            £{preset}
+          </Button>
+        ))}
       </Stack>
 
+      <TextField
+        label="Donation amount (£)"
+        type="number"
+        value={amount}
+        onChange={(e) => setAmount(Math.max(1, Number(e.target.value)))}
+        error={touched && !isAmountValid}
+        helperText={
+          touched && !isAmountValid ? "Minimum donation is £1" : "Every contribution helps"
+        }
+        fullWidth
+      />
+
+      <TextField
+        label="Email address"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        error={touched && !isEmailValid}
+        helperText={
+          touched && !isEmailValid
+            ? "Please enter a valid email"
+            : "We’ll send your donation receipt here"
+        }
+        required
+        fullWidth
+      />
+
+      <FormControlLabel
+        control={<Checkbox checked={giftAid} onChange={(e) => setGiftAid(e.target.checked)} />}
+        label="I am a UK taxpayer and would like to Gift Aid my donation"
+      />
+
+      <Typography variant="caption" color="text.secondary">
+        Gift Aid allows us to claim an extra 25p for every £1 you donate.
+      </Typography>
+
+      <Button
+        variant="contained"
+        size="large"
+        fullWidth
+        disabled={!isEmailValid || !isAmountValid || loading}
+        onClick={() => {
+          setTouched(true);
+          onContinue();
+        }}
+      >
+        {loading ? "Preparing payment…" : "Continue to payment"}
+      </Button>
+    </ContentColumn>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Main container */
+/* ------------------------------------------------------------------ */
+
+export function FinancialDonation({ content }: FinancialDonationProps) {
+  const { clientSecret, startDonation, loading } = useCreateDonation();
+
+  const [amount, setAmount] = useState(10);
+  const [email, setEmail] = useState("");
+  const [giftAid, setGiftAid] = useState(false);
+
+  const start = () =>
+    startDonation({
+      amountPence: amount * 100,
+      email,
+      giftAid,
+    });
+
+  return (
+    <Stack spacing={4} alignItems="center" width="100%">
+      <Typography variant="h2" align="center">
+        {content.title}
+      </Typography>
+
       <Paper
-        elevation={3}
         sx={{
           width: "100%",
-          maxWidth: 900,
-          p: { xs: 3, md: 5 },
+          p: { xs: 3, md: 6 },
           borderRadius: 3,
         }}
       >
-        <Stack spacing={4}>
-          <Stack direction={{ xs: "column", md: "row" }} spacing={3}>
-            {content.methods.map((method) => {
-              const Icon = method.icon;
-
-              return (
-                <InstructionCard key={method.id} icon={<Icon />} title={method.title}>
-                  {method.rows?.map((row) => (
-                    <InstructionRow key={row.label} label={row.label}>
-                      {row.value}
-                    </InstructionRow>
-                  ))}
-
-                  {method.content?.map((item, index) => (
-                    <Typography key={index} fontWeight={item.type === "strong" ? 600 : undefined}>
-                      {item.value}
-                    </Typography>
-                  ))}
-                </InstructionCard>
-              );
-            })}
-          </Stack>
+        <Stack spacing={4} width="100%" justifyContent="center" minHeight={480}>
+          <Typography variant="overline" align="center" color="text.secondary">
+            {clientSecret ? "Payment" : "Donation details"}
+          </Typography>
 
           <Divider />
 
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} justifyContent="center">
-            {content.actions.map((action) => (
-              <Button key={action.label} variant={action.variant} size="large" href={action.href}>
-                {action.label}
-              </Button>
-            ))}
-          </Stack>
+          {!clientSecret && (
+            <DonationDetailsForm
+              amount={amount}
+              setAmount={setAmount}
+              email={email}
+              setEmail={setEmail}
+              giftAid={giftAid}
+              setGiftAid={setGiftAid}
+              loading={loading}
+              onContinue={start}
+            />
+          )}
+
+          {clientSecret && (
+            <Elements stripe={stripePromise} options={elementsOptions(clientSecret)}>
+              <StripePaymentForm amount={amount} />
+            </Elements>
+          )}
         </Stack>
       </Paper>
     </Stack>
