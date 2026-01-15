@@ -1,48 +1,12 @@
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import DescriptionIcon from "@mui/icons-material/Description";
-
 export const DONATE_CONTENT = {
   hero: {
-    title: "How you can Donate",
+    title: "How you can help",
     subTitle:
       "Your generosity helps us support individuals and families in our community when they need it most",
   },
 
   financialDonation: {
-    title: "Financial Donation",
-    methods: [
-      {
-        id: "bank-transfer",
-        title: "Bank Transfer",
-        icon: AccountBalanceIcon,
-        rows: [
-          { label: "Account Name", value: "Food Facts Friends Project" },
-          { label: "Sort Code", value: "83–26–10" },
-          { label: "Account Number", value: "00709837" },
-        ],
-      },
-      {
-        id: "cheque",
-        title: "Cheque",
-        icon: DescriptionIcon,
-        content: [
-          { type: "text", value: "Payable to:" },
-          { type: "strong", value: "Food Facts Friends Project" },
-        ],
-      },
-    ],
-    actions: [
-      {
-        label: "FFF Donation Form",
-        variant: "contained",
-        href: "/assets/donation_form-DIdqkv8g.pdf",
-      },
-      {
-        label: "Gift Aid Declaration",
-        variant: "outlined",
-        href: "/assets/gift_aid_declaration-ByHasfVG.pdf",
-      },
-    ],
+    title: "Make a donation",
   },
 
   itemDonation: {

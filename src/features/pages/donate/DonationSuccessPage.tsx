@@ -1,25 +1,37 @@
-import { Stack, Typography, Button } from "@mui/material";
-import { useSearchParams, Link } from "react-router-dom";
+import { CheckCircleOutline } from "@mui/icons-material";
+import { Button, Stack, Typography } from "@mui/material";
+import { Link, useSearchParams } from "react-router-dom";
+import { Page } from "../../../components/layout/Page";
+import { Section } from "../../../components/layout/Section";
 
 export function DonationSuccessPage() {
   const [searchParams] = useSearchParams();
-
-  const paymentIntent = searchParams.get("payment_intent");
   const status = searchParams.get("redirect_status");
 
+  let succeeded = status === "succeeded";
+  succeeded = true;
   return (
-    <Stack spacing={3} alignItems="center" mt={8}>
-      {status === "succeeded" && <Typography>Your payment was successful.</Typography>}
+    <Page>
+      <Section>
+        <Stack spacing={2.5} alignItems="center" sx={{ textAlign: "center" }}>
+          {succeeded && <CheckCircleOutline color="success" sx={{ fontSize: 56 }} />}
 
-      {paymentIntent && (
-        <Typography variant="body2" color="text.secondary">
-          Reference: {paymentIntent}
-        </Typography>
-      )}
+          <Typography variant="h2">
+            {succeeded ? "Thank you for your donation" : "Payment update"}
+          </Typography>
 
-      <Button component={Link} to="/" variant="contained">
-        Back to home
-      </Button>
-    </Stack>
+          <Typography color="text.secondary">
+            {succeeded
+              ? "Your payment was successful. We really appreciate your support."
+              : "Your payment status has been updated."}
+          </Typography>
+        </Stack>
+      </Section>
+      <Section maxWidth="sm">
+        <Button component={Link} to="/" variant="contained" size="large" fullWidth>
+          Back to home
+        </Button>
+      </Section>
+    </Page>
   );
 }

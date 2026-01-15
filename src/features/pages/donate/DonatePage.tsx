@@ -3,20 +3,17 @@ import { HeroText } from "../../../components/hero/HeroText";
 import { DONATE_CONTENT } from "../../../content/donate.content";
 import { Section } from "../../../components/layout/Section";
 import Reveal from "../../../components/animation/Reveal";
-import { FinancialDonation } from "./components/FinancialDonation";
+import { FinancialDonation } from "./components/FinancialDonation/FinancialDonation";
 import { ItemDonation } from "./components/ItemDonation";
 import { ItemDonationInformation } from "./components/ItemDonationInformation";
 
-// TODO: update this ;)
 export const DonatePage = () => {
   return (
     <Page>
       <HeroText title={DONATE_CONTENT.hero.title} subtitle={DONATE_CONTENT.hero.subTitle} />
 
-      <Section>
-        <Reveal>
-          <FinancialDonation content={DONATE_CONTENT.financialDonation} />
-        </Reveal>
+      <Section maxWidth="sm">
+        <FinancialDonation content={DONATE_CONTENT.financialDonation} />
       </Section>
 
       <Section variant="dark">
