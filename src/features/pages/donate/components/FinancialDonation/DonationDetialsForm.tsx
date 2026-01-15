@@ -170,7 +170,6 @@ export function DonationDetailsForm({
             giftAidAddress: prev.giftAidAddress ?? EMPTY_GIFT_AID_ADDRESS,
           }));
 
-          // Optional: if turning OFF gift aid, stop showing errors
           if (!checked) {
             setTouched((prev) => ({ ...prev, giftAidAddress: false }));
           }
