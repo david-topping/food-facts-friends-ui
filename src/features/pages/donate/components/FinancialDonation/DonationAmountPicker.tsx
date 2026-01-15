@@ -41,11 +41,6 @@ export function DonationAmountPicker(props: DonationAmountPickerProps) {
         error={!!amountError}
         helperText={amountError}
         inputMode="decimal"
-        slotProps={{
-          input: {
-            startAdornment: <Typography sx={{ mr: 0.5 }}>£</Typography>,
-          },
-        }}
       />
     </Box>
   );

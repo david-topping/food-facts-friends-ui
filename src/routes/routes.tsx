@@ -20,18 +20,6 @@ export const APP_ROUTES: AppRoute[] = [
     showInNav: true,
   },
   {
-    path: "/services",
-    label: "What We Offer",
-    element: <ServicesPage />,
-    showInNav: true,
-  },
-  {
-    path: "/supporters",
-    label: "Our Supporters",
-    element: <SupportersPage />,
-    showInNav: true,
-  },
-  {
     path: "/donate",
     label: "How to Donate",
     element: <DonatePage />,
@@ -42,6 +30,18 @@ export const APP_ROUTES: AppRoute[] = [
     label: "How to Donate",
     element: <DonationSuccessPage />,
     showInNav: false,
+  },
+  {
+    path: "/services",
+    label: "What We Offer",
+    element: <ServicesPage />,
+    showInNav: true,
+  },
+  {
+    path: "/supporters",
+    label: "Our Supporters",
+    element: <SupportersPage />,
+    showInNav: true,
   },
   {
     path: "/contact",
