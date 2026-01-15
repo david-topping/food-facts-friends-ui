@@ -1,4 +1,4 @@
-import { Box, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { Box, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { PRESETS } from "./donationDetials.validation";
 
 type DonationAmountPickerProps = {
