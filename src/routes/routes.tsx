@@ -26,7 +26,7 @@ export const APP_ROUTES: AppRoute[] = [
     showInNav: true,
   },
   {
-    path: "/donation/success",
+    path: "/donate/success",
     label: "How to Donate",
     element: <DonationSuccessPage />,
     showInNav: false,
