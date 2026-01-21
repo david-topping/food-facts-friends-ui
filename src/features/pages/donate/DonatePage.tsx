@@ -3,7 +3,7 @@ import { HeroText } from "../../../components/hero/HeroText";
 import { DONATE_CONTENT } from "../../../content/donate.content";
 import { Section } from "../../../components/layout/Section";
 import Reveal from "../../../components/animation/Reveal";
-import { FinancialDonation } from "./components/FinancialDonation/FinancialDonation";
+import { FinancialDonationSection } from "../../donation/components/FinancialDonationSection";
 import { ItemDonation } from "./components/ItemDonation";
 import { ItemDonationInformation } from "./components/ItemDonationInformation";
 
@@ -13,7 +13,7 @@ export const DonatePage = () => {
       <HeroText title={DONATE_CONTENT.hero.title} subtitle={DONATE_CONTENT.hero.subTitle} />
 
       <Section maxWidth="sm">
-        <FinancialDonation content={DONATE_CONTENT.financialDonation} />
+        <FinancialDonationSection content={DONATE_CONTENT.financialDonation} />
       </Section>
 
       <Section variant="dark">

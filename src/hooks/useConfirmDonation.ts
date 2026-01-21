@@ -23,7 +23,7 @@ export function useConfirmDonation() {
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}/donation/success`,
+          return_url: `${window.location.origin}/donate/success`,
         },
       });
 
