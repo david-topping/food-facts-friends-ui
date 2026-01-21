@@ -10,7 +10,7 @@ const donationAmountSchema = z
     z
       .number()
       .refine((v) => Number.isFinite(v), { message: "Please enter a valid amount" })
-      .min(1, "Minimum donation is £1")
+      .min(5, "Minimum donation is £5")
       .max(1000, "Maximum donation is £1000"),
   );
 
