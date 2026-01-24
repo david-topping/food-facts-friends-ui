@@ -25,6 +25,7 @@ export function useConfirmDonation() {
         confirmParams: {
           return_url: `${window.location.origin}/donate/success`,
         },
+        redirect: "always",
       });
 
       if (result.error) {

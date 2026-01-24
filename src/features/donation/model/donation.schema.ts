@@ -14,37 +14,33 @@ const donationAmountSchema = z
       .max(1000, "Maximum donation is £1000"),
   );
 
-export const donationDetailsFormSchema = z
-  .object({
-    amount: donationAmountSchema,
+const baseSchema = z.object({
+  amount: donationAmountSchema,
+  email: z
+    .string()
+    .trim()
+    .min(1, "Please enter your email")
+    .pipe(z.email("Please enter a valid email")),
+});
 
-    email: z
-      .string()
-      .trim()
-      .min(1, "Please enter your email")
-      .pipe(z.email("Please enter a valid email")),
+const giftAidDetailsSchema = z.object({
+  firstName: z.string().trim().min(1, "Required for Gift Aid"),
+  lastName: z.string().trim().min(1, "Required for Gift Aid"),
+  addressLine1: z.string().trim().min(1, "Required for Gift Aid"),
+  addressLine2: z.string().trim().optional(),
+  city: z.string().trim().min(1, "Required for Gift Aid"),
+  postcode: z.string().trim().min(1, "Required for Gift Aid"),
+  country: z.string().trim().min(1, "Required for Gift Aid"),
+});
 
-    giftAid: z.boolean(),
+export const donationDetailsFormSchema = z.discriminatedUnion("giftAid", [
+  baseSchema.extend({
+    giftAid: z.literal(false),
+  }),
 
-    addressLine1: z.string().trim().optional(),
-    addressLine2: z.string().trim().optional(),
-    city: z.string().trim().optional(),
-    postcode: z.string().trim().optional(),
-    country: z.string().trim().optional(),
-  })
-  .superRefine((data, ctx) => {
-    if (!data.giftAid) return;
-
-    const required: Array<keyof typeof data> = ["addressLine1", "city", "postcode", "country"];
-
-    for (const field of required) {
-      const val = data[field];
-      if (typeof val !== "string" || val.trim().length === 0) {
-        ctx.addIssue({
-          code: "custom",
-          path: [field],
-          message: "Required for Gift Aid",
-        });
-      }
-    }
-  });
+  baseSchema
+    .extend({
+      giftAid: z.literal(true),
+    })
+    .merge(giftAidDetailsSchema),
+]);

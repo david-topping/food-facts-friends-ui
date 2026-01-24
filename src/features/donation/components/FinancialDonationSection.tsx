@@ -34,11 +34,28 @@ export function FinancialDonationSection({ content }: FinancialDonationSectionPr
 
     setDonationData(data);
 
-    await startDonation({
-      amountPence: Math.round(data.amount * 100),
-      email: data.email,
-      giftAid: data.giftAid,
-    });
+    await startDonation(
+      data.giftAid
+        ? {
+            amountPence: Math.round(data.amount * 100),
+            email: data.email,
+            giftAid: true,
+            giftAidDetails: {
+              firstName: data.firstName,
+              lastName: data.lastName,
+              addressLine1: data.addressLine1,
+              addressLine2: data.addressLine2,
+              city: data.city,
+              postcode: data.postcode,
+              country: data.country,
+            },
+          }
+        : {
+            amountPence: Math.round(data.amount * 100),
+            email: data.email,
+            giftAid: false,
+          },
+    );
 
     requestAnimationFrame(() => scrollToTopOfSection());
   };

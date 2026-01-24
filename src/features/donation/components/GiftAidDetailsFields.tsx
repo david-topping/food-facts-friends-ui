@@ -1,6 +1,8 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
 
-export type GiftAidAddressValues = {
+export type GiftAidDetailsValues = {
+  firstName: string;
+  lastName: string;
   addressLine1: string;
   addressLine2: string;
   city: string;
@@ -8,24 +10,52 @@ export type GiftAidAddressValues = {
   country: string;
 };
 
-type GiftAidAddressFieldsProps = {
-  values: GiftAidAddressValues;
-  onChange: (next: GiftAidAddressValues) => void;
-  errors?: Partial<Record<keyof GiftAidAddressValues, string>>;
+export type GiftAidDetailsErrors = Partial<Record<keyof GiftAidDetailsValues, string>>;
+
+type GiftAidDetailsFieldsProps = {
+  values: GiftAidDetailsValues;
+  onChange: (next: GiftAidDetailsValues) => void;
+  errors?: GiftAidDetailsErrors;
   touched?: boolean;
 };
 
-export function GiftAidAddressFields({
+export function GiftAidDetailsFields({
   values,
   onChange,
   errors = {},
   touched = false,
-}: GiftAidAddressFieldsProps) {
-  const showError = (key: keyof GiftAidAddressValues) => (touched ? errors[key] : undefined);
+}: GiftAidDetailsFieldsProps) {
+  const showError = (key: keyof GiftAidDetailsValues) => (touched ? errors[key] : undefined);
 
   return (
     <Stack spacing={1}>
-      <Typography fontWeight={700}>Gift Aid address</Typography>
+      <Typography fontWeight={700}>Gift Aid details</Typography>
+
+      <Box
+        sx={{
+          display: "grid",
+          gap: 1.25,
+          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+        }}
+      >
+        <TextField
+          label="First name"
+          value={values.firstName}
+          onChange={(e) => onChange({ ...values, firstName: e.target.value })}
+          error={!!showError("firstName")}
+          helperText={showError("firstName") || " "}
+          fullWidth
+        />
+
+        <TextField
+          label="Last name"
+          value={values.lastName}
+          onChange={(e) => onChange({ ...values, lastName: e.target.value })}
+          error={!!showError("lastName")}
+          helperText={showError("lastName") || " "}
+          fullWidth
+        />
+      </Box>
 
       <TextField
         label="Address line 1"

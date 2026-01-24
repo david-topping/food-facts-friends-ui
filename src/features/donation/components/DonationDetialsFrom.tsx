@@ -16,7 +16,8 @@ import {
   type PresetAmount,
 } from "../model/donation.schema";
 import type { DonationDetails } from "../model/donation.types";
-import { GiftAidAddressFields } from "./GiftAidAddressFields";
+import type { GiftAidDetailsErrors, GiftAidDetailsValues } from "./GiftAidDetailsFields";
+import { GiftAidDetailsFields } from "./GiftAidDetailsFields";
 
 type DonationDetailsFormProps = {
   onSubmit: (data: DonationDetails) => void;
@@ -32,16 +33,47 @@ function isPresetAmount(v: number): v is PresetAmount {
   return (PRESET_AMOUNTS as readonly number[]).includes(v);
 }
 
-function zodToFieldErrors(error: z.ZodError): FormErrors {
-  const fieldErrors: FormErrors = {};
+function zodToFieldErrors(error: z.ZodError): {
+  formErrors: FormErrors;
+  giftAidErrors: GiftAidDetailsErrors;
+} {
+  const formErrors: FormErrors = {};
+  const giftAidErrors: GiftAidDetailsErrors = {};
 
   for (const issue of error.issues) {
-    const key = issue.path[0];
-    if (!key) continue;
-    fieldErrors[key as keyof DonationDetails] = issue.message;
+    const [first, second] = issue.path;
+
+    // Top-level fields: amount, email, giftAid
+    if (typeof first === "string" && !second) {
+      formErrors[first as keyof DonationDetails] = issue.message;
+      continue;
+    }
+
+    // Nested GiftAid fields: giftAidDetails.firstName etc (if your schema is nested)
+    if (first === "giftAidDetails" && typeof second === "string") {
+      giftAidErrors[second as keyof GiftAidDetailsValues] = issue.message;
+      continue;
+    }
+
+    // Flat GiftAid fields (your current schema spreads them: firstName, lastName, etc)
+    if (typeof first === "string") {
+      const giftAidKeys: (keyof GiftAidDetailsValues)[] = [
+        "firstName",
+        "lastName",
+        "addressLine1",
+        "addressLine2",
+        "city",
+        "postcode",
+        "country",
+      ];
+
+      if (giftAidKeys.includes(first as keyof GiftAidDetailsValues)) {
+        giftAidErrors[first as keyof GiftAidDetailsValues] = issue.message;
+      }
+    }
   }
 
-  return fieldErrors;
+  return { formErrors, giftAidErrors };
 }
 
 export function DonationDetailsForm({
@@ -65,16 +97,33 @@ export function DonationDetailsForm({
   const [email, setEmail] = useState(initialValues.email ?? "");
   const [giftAid, setGiftAid] = useState(initialValues.giftAid ?? false);
 
-  const [address, setAddress] = useState({
-    addressLine1: initialValues.addressLine1 ?? "",
-    addressLine2: initialValues.addressLine2 ?? "",
-    city: initialValues.city ?? "",
-    postcode: initialValues.postcode ?? "",
-    country: initialValues.country ?? "United Kingdom",
+  const giftAidInitialValues =
+    initialValues.giftAid === true
+      ? {
+          firstName: initialValues.firstName,
+          lastName: initialValues.lastName,
+          addressLine1: initialValues.addressLine1,
+          addressLine2: initialValues.addressLine2 ?? "",
+          city: initialValues.city,
+          postcode: initialValues.postcode,
+          country: initialValues.country,
+        }
+      : null;
+
+  const [giftAidDetails, setGiftAidDetails] = useState<GiftAidDetailsValues>({
+    firstName: giftAidInitialValues?.firstName ?? "",
+    lastName: giftAidInitialValues?.lastName ?? "",
+    addressLine1: giftAidInitialValues?.addressLine1 ?? "",
+    addressLine2: giftAidInitialValues?.addressLine2 ?? "",
+    city: giftAidInitialValues?.city ?? "",
+    postcode: giftAidInitialValues?.postcode ?? "",
+    country: giftAidInitialValues?.country ?? "United Kingdom",
   });
 
   const [touched, setTouched] = useState(false);
+
   const [errors, setErrors] = useState<FormErrors>({});
+  const [giftAidErrors, setGiftAidErrors] = useState<GiftAidDetailsErrors>({});
 
   const amountFieldValue = presetAmount ?? customAmount;
 
@@ -84,19 +133,30 @@ export function DonationDetailsForm({
   const handleContinue = () => {
     setTouched(true);
 
-    const result = donationDetailsFormSchema.safeParse({
-      amount: amountFieldValue,
-      email,
-      giftAid,
-      ...address,
-    });
+    const result = donationDetailsFormSchema.safeParse(
+      giftAid
+        ? {
+            amount: amountFieldValue,
+            email,
+            giftAid: true,
+            ...giftAidDetails,
+          }
+        : {
+            amount: amountFieldValue,
+            email,
+            giftAid: false,
+          },
+    );
 
     if (!result.success) {
-      setErrors(zodToFieldErrors(result.error));
+      const next = zodToFieldErrors(result.error);
+      setErrors(next.formErrors);
+      setGiftAidErrors(next.giftAidErrors);
       return;
     }
 
     setErrors({});
+    setGiftAidErrors({});
     onSubmit(result.data);
   };
 
@@ -200,16 +260,11 @@ export function DonationDetailsForm({
       </Stack>
 
       {giftAid && (
-        <GiftAidAddressFields
-          values={address}
-          onChange={setAddress}
+        <GiftAidDetailsFields
+          values={giftAidDetails}
+          onChange={setGiftAidDetails}
           touched={touched}
-          errors={{
-            addressLine1: showError("addressLine1"),
-            city: showError("city"),
-            postcode: showError("postcode"),
-            country: showError("country"),
-          }}
+          errors={giftAidErrors}
         />
       )}
 
