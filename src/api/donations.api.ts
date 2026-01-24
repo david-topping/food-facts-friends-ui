@@ -1,8 +1,25 @@
-export type CreateDonationRequest = {
-  amountPence: number;
-  email: string;
-  giftAid: boolean;
+export type GiftAidDetails = {
+  firstName: string;
+  lastName: string;
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  postcode: string;
+  country: string;
 };
+
+export type CreateDonationRequest =
+  | {
+      amountPence: number;
+      email: string;
+      giftAid: false;
+    }
+  | {
+      amountPence: number;
+      email: string;
+      giftAid: true;
+      giftAidDetails: GiftAidDetails;
+    };
 
 export type CreateDonationResponse = {
   clientSecret: string;
@@ -23,5 +40,5 @@ export async function createDonation(payload: CreateDonationRequest) {
     throw new Error("Failed to create donation");
   }
 
-  return res.json();
+  return res.json() as Promise<CreateDonationResponse>;
 }
