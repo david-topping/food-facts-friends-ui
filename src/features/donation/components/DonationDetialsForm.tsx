@@ -29,6 +29,16 @@ type FormErrors = Partial<Record<keyof DonationDetails, string>>;
 
 const MONEY_INPUT_REGEX = /^[0-9]*\.?[0-9]*$/;
 
+const EMPTY_GIFT_AID_DETAILS: GiftAidDetailsValues = {
+  firstName: "",
+  lastName: "",
+  addressLine1: "",
+  addressLine2: "",
+  city: "",
+  postcode: "",
+  country: "United Kingdom",
+};
+
 function isPresetAmount(v: number): v is PresetAmount {
   return (PRESET_AMOUNTS as readonly number[]).includes(v);
 }
@@ -62,61 +72,52 @@ export function DonationDetailsForm({
   loading = false,
   initialValues = {},
 }: DonationDetailsFormProps) {
-  const initialPreset =
-    typeof (initialValues as any).amount === "number" &&
-    isPresetAmount((initialValues as any).amount)
-      ? ((initialValues as any).amount as PresetAmount)
+  const initialAmount = initialValues.amount;
+
+  const [presetAmount, setPresetAmount] = useState<PresetAmount | null>(() => {
+    return typeof initialAmount === "number" && isPresetAmount(initialAmount)
+      ? initialAmount
       : null;
+  });
 
-  const initialCustom =
-    typeof (initialValues as any).amount === "number" &&
-    !isPresetAmount((initialValues as any).amount)
-      ? String((initialValues as any).amount)
+  const [customAmount, setCustomAmount] = useState(() => {
+    return typeof initialAmount === "number" && !isPresetAmount(initialAmount)
+      ? String(initialAmount)
       : "";
+  });
 
-  const [presetAmount, setPresetAmount] = useState<PresetAmount | null>(initialPreset);
-  const [customAmount, setCustomAmount] = useState(initialCustom);
+  const [email, setEmail] = useState(initialValues.email ?? "");
+  const [giftAid, setGiftAid] = useState(initialValues.giftAid ?? false);
 
-  const [email, setEmail] = useState((initialValues as any).email ?? "");
-  const [giftAid, setGiftAid] = useState((initialValues as any).giftAid ?? false);
+  const [giftAidDetails, setGiftAidDetails] = useState<GiftAidDetailsValues>(() => {
+    if (initialValues.giftAid === true) {
+      return {
+        ...EMPTY_GIFT_AID_DETAILS,
+        ...initialValues.giftAidDetails,
+        addressLine2: initialValues.giftAidDetails?.addressLine2 ?? "",
+      };
+    }
 
-  const [giftAidDetails, setGiftAidDetails] = useState<GiftAidDetailsValues>({
-    firstName: "",
-    lastName: "",
-    addressLine1: "",
-    addressLine2: "",
-    city: "",
-    postcode: "",
-    country: "United Kingdom",
+    return EMPTY_GIFT_AID_DETAILS;
   });
 
   const [touched, setTouched] = useState(false);
-
   const [errors, setErrors] = useState<FormErrors>({});
   const [giftAidErrors, setGiftAidErrors] = useState<GiftAidDetailsErrors>({});
-
-  const amountFieldValue = presetAmount ?? customAmount;
 
   const showError = <K extends keyof DonationDetails>(key: K) =>
     touched ? errors[key] : undefined;
 
+  const amountFieldValue = presetAmount ?? customAmount;
+
   const handleContinue = () => {
     setTouched(true);
 
-    const result = donationDetailsFormSchema.safeParse(
-      giftAid
-        ? {
-            amount: amountFieldValue,
-            email,
-            giftAid: true,
-            giftAidDetails,
-          }
-        : {
-            amount: amountFieldValue,
-            email,
-            giftAid: false,
-          },
-    );
+    const payload = giftAid
+      ? { amount: amountFieldValue, email, giftAid: true, giftAidDetails }
+      : { amount: amountFieldValue, email, giftAid: false };
+
+    const result = donationDetailsFormSchema.safeParse(payload);
 
     if (!result.success) {
       const next = zodToFieldErrors(result.error);
@@ -161,7 +162,6 @@ export function DonationDetailsForm({
             onChange={(e) => {
               const next = e.target.value;
               if (!MONEY_INPUT_REGEX.test(next)) return;
-
               setCustomAmount(next);
               setPresetAmount(null);
             }}
