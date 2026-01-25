@@ -14,10 +14,10 @@ import {
   donationDetailsFormSchema,
   PRESET_AMOUNTS,
   type PresetAmount,
-} from "../model/donation.schema";
-import type { DonationDetails } from "../model/donation.types";
-import type { GiftAidDetailsErrors, GiftAidDetailsValues } from "./GiftAidDetailsFields";
-import { GiftAidDetailsFields } from "./GiftAidDetailsFields";
+} from "./DonationDetialsForm.schema";
+import type { DonationDetails } from "./donation.types";
+import type { GiftAidDetailsErrors, GiftAidDetailsValues } from "./GiftAidDetialsFields";
+import { GiftAidDetailsFields } from "./GiftAidDetialsFields";
 
 type DonationDetailsFormProps = {
   onSubmit: (data: DonationDetails) => void;
@@ -43,33 +43,14 @@ function zodToFieldErrors(error: z.ZodError): {
   for (const issue of error.issues) {
     const [first, second] = issue.path;
 
-    // Top-level fields: amount, email, giftAid
-    if (typeof first === "string" && !second) {
+    if (typeof first === "string" && second === undefined) {
       formErrors[first as keyof DonationDetails] = issue.message;
       continue;
     }
 
-    // Nested GiftAid fields: giftAidDetails.firstName etc (if your schema is nested)
     if (first === "giftAidDetails" && typeof second === "string") {
       giftAidErrors[second as keyof GiftAidDetailsValues] = issue.message;
       continue;
-    }
-
-    // Flat GiftAid fields (your current schema spreads them: firstName, lastName, etc)
-    if (typeof first === "string") {
-      const giftAidKeys: (keyof GiftAidDetailsValues)[] = [
-        "firstName",
-        "lastName",
-        "addressLine1",
-        "addressLine2",
-        "city",
-        "postcode",
-        "country",
-      ];
-
-      if (giftAidKeys.includes(first as keyof GiftAidDetailsValues)) {
-        giftAidErrors[first as keyof GiftAidDetailsValues] = issue.message;
-      }
     }
   }
 
@@ -82,42 +63,31 @@ export function DonationDetailsForm({
   initialValues = {},
 }: DonationDetailsFormProps) {
   const initialPreset =
-    typeof initialValues.amount === "number" && isPresetAmount(initialValues.amount)
-      ? initialValues.amount
+    typeof (initialValues as any).amount === "number" &&
+    isPresetAmount((initialValues as any).amount)
+      ? ((initialValues as any).amount as PresetAmount)
       : null;
 
   const initialCustom =
-    typeof initialValues.amount === "number" && !isPresetAmount(initialValues.amount)
-      ? String(initialValues.amount)
+    typeof (initialValues as any).amount === "number" &&
+    !isPresetAmount((initialValues as any).amount)
+      ? String((initialValues as any).amount)
       : "";
 
   const [presetAmount, setPresetAmount] = useState<PresetAmount | null>(initialPreset);
   const [customAmount, setCustomAmount] = useState(initialCustom);
 
-  const [email, setEmail] = useState(initialValues.email ?? "");
-  const [giftAid, setGiftAid] = useState(initialValues.giftAid ?? false);
-
-  const giftAidInitialValues =
-    initialValues.giftAid === true
-      ? {
-          firstName: initialValues.firstName,
-          lastName: initialValues.lastName,
-          addressLine1: initialValues.addressLine1,
-          addressLine2: initialValues.addressLine2 ?? "",
-          city: initialValues.city,
-          postcode: initialValues.postcode,
-          country: initialValues.country,
-        }
-      : null;
+  const [email, setEmail] = useState((initialValues as any).email ?? "");
+  const [giftAid, setGiftAid] = useState((initialValues as any).giftAid ?? false);
 
   const [giftAidDetails, setGiftAidDetails] = useState<GiftAidDetailsValues>({
-    firstName: giftAidInitialValues?.firstName ?? "",
-    lastName: giftAidInitialValues?.lastName ?? "",
-    addressLine1: giftAidInitialValues?.addressLine1 ?? "",
-    addressLine2: giftAidInitialValues?.addressLine2 ?? "",
-    city: giftAidInitialValues?.city ?? "",
-    postcode: giftAidInitialValues?.postcode ?? "",
-    country: giftAidInitialValues?.country ?? "United Kingdom",
+    firstName: "",
+    lastName: "",
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    postcode: "",
+    country: "United Kingdom",
   });
 
   const [touched, setTouched] = useState(false);
@@ -139,7 +109,7 @@ export function DonationDetailsForm({
             amount: amountFieldValue,
             email,
             giftAid: true,
-            ...giftAidDetails,
+            giftAidDetails,
           }
         : {
             amount: amountFieldValue,
