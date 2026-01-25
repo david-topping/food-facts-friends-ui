@@ -6,9 +6,9 @@ import { stripePromise } from "../../../stripe/stripe";
 import { elementsOptions } from "../../../stripe/elementsOptions";
 import { useCreateDonation } from "../../../hooks/useCreateDonation";
 
-import { DonationDetailsForm } from "./DonationDetialsFrom";
+import { DonationDetailsForm } from "./DonationDetialsForm";
 import { StripePaymentForm } from "./StripePaymentForm";
-import type { DonationDetails } from "../model/donation.types";
+import type { DonationDetails } from "./donation.types";
 
 type FinancialDonationSectionProps = {
   content: { title: string };
@@ -28,7 +28,6 @@ export function FinancialDonationSection({ content }: FinancialDonationSectionPr
       block: "start",
     });
   };
-
   const handleDetailsSubmit = async (data: DonationDetails) => {
     scrollToTopOfSection();
 
@@ -40,15 +39,7 @@ export function FinancialDonationSection({ content }: FinancialDonationSectionPr
             amountPence: Math.round(data.amount * 100),
             email: data.email,
             giftAid: true,
-            giftAidDetails: {
-              firstName: data.firstName,
-              lastName: data.lastName,
-              addressLine1: data.addressLine1,
-              addressLine2: data.addressLine2,
-              city: data.city,
-              postcode: data.postcode,
-              country: data.country,
-            },
+            giftAidDetails: data.giftAidDetails,
           }
         : {
             amountPence: Math.round(data.amount * 100),
