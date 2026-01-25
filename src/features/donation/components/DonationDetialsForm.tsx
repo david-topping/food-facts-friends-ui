@@ -8,15 +8,10 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import type { z } from "zod";
 
-import {
-  donationDetailsFormSchema,
-  PRESET_AMOUNTS,
-  type PresetAmount,
-} from "./DonationDetialsForm.schema";
+import { donationDetailsFormSchema, PRESET_AMOUNTS } from "./DonationDetialsForm.schema";
 import type { DonationDetails } from "./donation.types";
-import type { GiftAidDetailsErrors, GiftAidDetailsValues } from "./GiftAidDetialsFields";
+import type { GiftAidDetailsValues } from "./GiftAidDetialsFields";
 import { GiftAidDetailsFields } from "./GiftAidDetialsFields";
 
 type DonationDetailsFormProps = {
@@ -25,11 +20,9 @@ type DonationDetailsFormProps = {
   initialValues?: Partial<DonationDetails>;
 };
 
-type FormErrors = Partial<Record<keyof DonationDetails, string>>;
+const MONEY_INPUT_REGEX = /^\d*\.?\d{0,2}$/;
 
-const MONEY_INPUT_REGEX = /^[0-9]*\.?[0-9]*$/;
-
-const EMPTY_GIFT_AID_DETAILS: GiftAidDetailsValues = {
+const EMPTY_GIFT_AID: GiftAidDetailsValues = {
   firstName: "",
   lastName: "",
   addressLine1: "",
@@ -39,96 +32,58 @@ const EMPTY_GIFT_AID_DETAILS: GiftAidDetailsValues = {
   country: "United Kingdom",
 };
 
-function isPresetAmount(v: number): v is PresetAmount {
-  return (PRESET_AMOUNTS as readonly number[]).includes(v);
-}
-
-function zodToFieldErrors(error: z.ZodError): {
-  formErrors: FormErrors;
-  giftAidErrors: GiftAidDetailsErrors;
-} {
-  const formErrors: FormErrors = {};
-  const giftAidErrors: GiftAidDetailsErrors = {};
-
-  for (const issue of error.issues) {
-    const [first, second] = issue.path;
-
-    if (typeof first === "string" && second === undefined) {
-      formErrors[first as keyof DonationDetails] = issue.message;
-      continue;
-    }
-
-    if (first === "giftAidDetails" && typeof second === "string") {
-      giftAidErrors[second as keyof GiftAidDetailsValues] = issue.message;
-      continue;
-    }
-  }
-
-  return { formErrors, giftAidErrors };
-}
-
 export function DonationDetailsForm({
   onSubmit,
   loading = false,
   initialValues = {},
 }: DonationDetailsFormProps) {
-  const initialAmount = initialValues.amount;
-
-  const [presetAmount, setPresetAmount] = useState<PresetAmount | null>(() => {
-    return typeof initialAmount === "number" && isPresetAmount(initialAmount)
-      ? initialAmount
-      : null;
-  });
-
-  const [customAmount, setCustomAmount] = useState(() => {
-    return typeof initialAmount === "number" && !isPresetAmount(initialAmount)
-      ? String(initialAmount)
-      : "";
-  });
+  const [amountInput, setAmountInput] = useState(() =>
+    initialValues.amount ? String(initialValues.amount) : "",
+  );
 
   const [email, setEmail] = useState(initialValues.email ?? "");
   const [giftAid, setGiftAid] = useState(initialValues.giftAid ?? false);
 
-  const [giftAidDetails, setGiftAidDetails] = useState<GiftAidDetailsValues>(() => {
-    if (initialValues.giftAid === true) {
-      return {
-        ...EMPTY_GIFT_AID_DETAILS,
-        ...initialValues.giftAidDetails,
-        addressLine2: initialValues.giftAidDetails?.addressLine2 ?? "",
-      };
-    }
+  const [giftAidDetails, setGiftAidDetails] = useState<GiftAidDetailsValues>(() => ({
+    ...EMPTY_GIFT_AID,
+    ...(initialValues.giftAid === true ? initialValues.giftAidDetails : {}),
+  }));
 
-    return EMPTY_GIFT_AID_DETAILS;
-  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const [touched, setTouched] = useState(false);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [giftAidErrors, setGiftAidErrors] = useState<GiftAidDetailsErrors>({});
-
-  const showError = <K extends keyof DonationDetails>(key: K) =>
-    touched ? errors[key] : undefined;
-
-  const amountFieldValue = presetAmount ?? customAmount;
+  const selectedPreset = PRESET_AMOUNTS.find((v) => String(v) === amountInput);
 
   const handleContinue = () => {
-    setTouched(true);
-
     const payload = giftAid
-      ? { amount: amountFieldValue, email, giftAid: true, giftAidDetails }
-      : { amount: amountFieldValue, email, giftAid: false };
+      ? { amount: amountInput, email, giftAid: true, giftAidDetails }
+      : { amount: amountInput, email, giftAid: false };
 
     const result = donationDetailsFormSchema.safeParse(payload);
 
     if (!result.success) {
-      const next = zodToFieldErrors(result.error);
-      setErrors(next.formErrors);
-      setGiftAidErrors(next.giftAidErrors);
+      const newErrors: Record<string, string> = {};
+
+      for (const issue of result.error.issues) {
+        const path = issue.path.join(".");
+        newErrors[path] = issue.message;
+      }
+
+      setErrors(newErrors);
       return;
     }
 
     setErrors({});
-    setGiftAidErrors({});
     onSubmit(result.data);
+  };
+
+  const clearError = (field: string) => {
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
   };
 
   return (
@@ -146,10 +101,10 @@ export function DonationDetailsForm({
           {PRESET_AMOUNTS.map((v) => (
             <Button
               key={v}
-              variant={presetAmount === v ? "contained" : "outlined"}
+              variant={selectedPreset === v ? "contained" : "outlined"}
               onClick={() => {
-                setPresetAmount(v);
-                setCustomAmount("");
+                setAmountInput(String(v));
+                clearError("amount");
               }}
               sx={{ height: 52, borderRadius: 2, fontWeight: 700 }}
             >
@@ -158,17 +113,17 @@ export function DonationDetailsForm({
           ))}
 
           <TextField
-            value={customAmount}
+            value={amountInput}
             onChange={(e) => {
-              const next = e.target.value;
-              if (!MONEY_INPUT_REGEX.test(next)) return;
-              setCustomAmount(next);
-              setPresetAmount(null);
+              const value = e.target.value;
+              if (value && !MONEY_INPUT_REGEX.test(value)) return;
+              setAmountInput(value);
+              clearError("amount");
             }}
             placeholder="Other amount"
             inputMode="decimal"
-            error={!!showError("amount")}
-            helperText={showError("amount") || " "}
+            error={!!errors.amount}
+            helperText={errors.amount || " "}
             slotProps={{
               input: {
                 startAdornment: <Box sx={{ mr: 1, fontWeight: 700 }}>£</Box>,
@@ -187,11 +142,14 @@ export function DonationDetailsForm({
       <TextField
         label="Email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          clearError("email");
+        }}
         type="email"
         autoComplete="email"
-        error={!!showError("email")}
-        helperText={showError("email") || " "}
+        error={!!errors.email}
+        helperText={errors.email || " "}
         fullWidth
       />
 
@@ -218,8 +176,9 @@ export function DonationDetailsForm({
           exclusive
           value={giftAid ? "yes" : "no"}
           onChange={(_, value) => {
-            if (!value) return;
-            setGiftAid(value === "yes");
+            if (value !== null) {
+              setGiftAid(value === "yes");
+            }
           }}
           size="small"
           sx={{ borderRadius: 2 }}
@@ -232,9 +191,14 @@ export function DonationDetailsForm({
       {giftAid && (
         <GiftAidDetailsFields
           values={giftAidDetails}
-          onChange={setGiftAidDetails}
-          touched={touched}
-          errors={giftAidErrors}
+          onChange={(updated) => {
+            setGiftAidDetails(updated);
+            // Clear any Gift Aid field errors
+            Object.keys(updated).forEach((key) => {
+              clearError(`giftAidDetails.${key}`);
+            });
+          }}
+          errors={errors}
         />
       )}
 
