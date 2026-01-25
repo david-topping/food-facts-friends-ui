@@ -8,7 +8,6 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import type { z } from "zod";
 
 import { donationDetailsFormSchema, PRESET_AMOUNTS } from "./DonationDetialsForm.schema";
 import type { DonationDetails } from "./donation.types";
