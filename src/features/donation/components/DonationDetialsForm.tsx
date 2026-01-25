@@ -76,6 +76,14 @@ export function DonationDetailsForm({
     onSubmit(result.data);
   };
 
+  const giftAidErrors: Record<string, string> = {};
+  Object.keys(errors).forEach((key) => {
+    if (key.startsWith("giftAidDetails.")) {
+      const fieldName = key.replace("giftAidDetails.", "");
+      giftAidErrors[fieldName] = errors[key];
+    }
+  });
+
   const clearError = (field: string) => {
     if (errors[field]) {
       setErrors((prev) => {
@@ -193,12 +201,12 @@ export function DonationDetailsForm({
           values={giftAidDetails}
           onChange={(updated) => {
             setGiftAidDetails(updated);
-            // Clear any Gift Aid field errors
             Object.keys(updated).forEach((key) => {
               clearError(`giftAidDetails.${key}`);
             });
           }}
-          errors={errors}
+          errors={giftAidErrors}
+          touched={Object.keys(errors).length > 0}
         />
       )}
 
