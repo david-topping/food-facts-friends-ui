@@ -1,27 +1,21 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { getCookieConsent } from "./cookieConsent";
+import { useCallback, useMemo, useState } from "react";
+import { getCookieConsent, setCookieConsent, type CookieConsentValue } from "./cookieConsent";
 
-type ConsentState = "accepted" | "rejected" | null;
+type ConsentState = CookieConsentValue | null;
 
 export function useCookieConsent() {
-  const [consent, setConsent] = useState<ConsentState>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const existing = getCookieConsent();
-    setConsent(existing);
-    setIsLoaded(true);
-  }, []);
+  const [consent, setConsent] = useState<ConsentState>(() => getCookieConsent());
 
   const hasConsent = useMemo(() => consent === "accepted", [consent]);
-
-  const showBanner = useMemo(() => isLoaded && consent === null, [isLoaded, consent]);
+  const showBanner = useMemo(() => consent === null, [consent]);
 
   const accept = useCallback(() => {
+    setCookieConsent("accepted");
     setConsent("accepted");
   }, []);
 
   const reject = useCallback(() => {
+    setCookieConsent("rejected");
     setConsent("rejected");
   }, []);
 
