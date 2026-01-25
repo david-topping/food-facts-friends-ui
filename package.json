@@ -19,6 +19,7 @@
     "@stripe/react-stripe-js": "^5.4.1",
     "@stripe/stripe-js": "^8.6.1",
     "react": "^19.2.0",
+    "react-cookie-consent": "^10.0.1",
     "react-dom": "^19.2.0",
     "react-ga4": "^2.1.0",
     "react-router-dom": "^7.11.0",
