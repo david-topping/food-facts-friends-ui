@@ -108,7 +108,6 @@ export function GiftAidDetailsFields({
         fullWidth
       />
 
-      {/* Gift Aid Declaration */}
       <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
         <strong>Gift Aid declaration:</strong> I am a UK taxpayer and understand that if I pay less
         Income Tax and/or Capital Gains Tax in the current tax year than the amount of Gift Aid
