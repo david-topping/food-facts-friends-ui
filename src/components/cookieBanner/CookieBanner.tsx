@@ -52,6 +52,15 @@ export function CookieBanner({ open, onAccept, onReject }: CookieBannerProps) {
               setCookieConsent("rejected");
               onReject();
             }}
+            sx={{
+              opacity: 0.5,
+              color: "text.disabled",
+              borderColor: "action.disabled",
+              "&:hover": {
+                borderColor: "action.disabled",
+                backgroundColor: "transparent",
+              },
+            }}
           >
             {COOKIES_CONTENT.banner.actions.reject}
           </Button>
