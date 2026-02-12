@@ -1,8 +1,8 @@
 export const COOKIES_CONTENT = {
   banner: {
-    title: "Cookies",
+    title: "Essential Cookies",
     message:
-      "We use optional analytics cookies to understand how visitors use the site and improve it. You can accept or reject analytics cookies at any time.",
+      "We use required cookies to make this site work properly and keep it secure. These cookies are necessary for core functionality and cannot be disabled.",
     actions: {
       accept: "Accept",
       reject: "Reject",
