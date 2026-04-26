@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy-bld:
+    if: false
     permissions:
       contents: write
       issues: write
