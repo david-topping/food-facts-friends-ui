@@ -4,6 +4,7 @@ import { HomePage } from "../features/pages/home/HomePage";
 import { SupportersPage } from "../features/pages/supporters/SupportersPage";
 import { ContactPage } from "../features/pages/contact/ContactPage";
 import { ServicesPage } from "../features/pages/services/ServicesPage";
+import { BuildingFundPage } from "../features/pages/buildingFund/BuildingFundPage";
 
 export type AppRoute = {
   path: string;
@@ -48,5 +49,11 @@ export const APP_ROUTES: AppRoute[] = [
     label: "Contact Us",
     element: <ContactPage />,
     showInNav: true,
+  },
+  {
+    path: "/building-fund",
+    label: "Buy Our Building",
+    element: <BuildingFundPage />,
+    showInNav: false,
   },
 ];

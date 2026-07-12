@@ -8,12 +8,15 @@ import { HomeHeroIntro } from "./components/HeroIntro";
 import { FindUs } from "./components/FindUs";
 import { NeedSupport } from "./components/NeedSupport";
 import { useNavigate } from "react-router-dom";
+import { BuildingFundBanner } from "../../../components/buildingFundBanner/BuildingFundBanner";
 
 export const HomePage = () => {
   const navigate = useNavigate();
 
   return (
     <Page>
+      <BuildingFundBanner />
+
       <HeroImage image={homeHero} />
 
       <Section variant="default" maxWidth="md">
