@@ -13,7 +13,6 @@ permissions:
 
 jobs:
   deploy-prod:
-    if: false
     name: Deploy Release ${{ inputs.release_tag }} to PROD
 
     runs-on: ubuntu-latest
