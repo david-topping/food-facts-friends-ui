@@ -1,8 +1,8 @@
 import { Box, Typography, Stack } from "@mui/material";
 import { GLOBAL_CONTENT } from "@/content/global.content";
-import SocialMediaIcons from "./components/SocialMediaIcons";
+import { SocialMediaIcons } from "./components/SocialMediaIcons";
 
-export default function Footer() {
+export function Footer() {
   return (
     <Box
       component="footer"

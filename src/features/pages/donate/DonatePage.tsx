@@ -2,7 +2,7 @@ import { Page } from "@/components/layout/Page";
 import { HeroText } from "@/components/hero/HeroText";
 import { DONATE_CONTENT } from "@/content/donate.content";
 import { Section } from "@/components/layout/Section";
-import Reveal from "@/components/animation/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 import { FinancialDonationSection } from "@/features/donation/components/FinancialDonationSection";
 import { ItemDonation } from "./components/ItemDonation";
 import { ItemDonationInformation } from "./components/ItemDonationInformation";

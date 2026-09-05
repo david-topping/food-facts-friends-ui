@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box";
 import { useLocation } from "react-router-dom";
 import { APP_ROUTES } from "@/routes/routes";
-import NavLink from "./NavLink";
+import { NavLink } from "./NavLink";
 
-export default function DesktopNav() {
+export function DesktopNav() {
   const { pathname } = useLocation();
   const navRoutes = APP_ROUTES.filter((route) => route.showInNav);
 

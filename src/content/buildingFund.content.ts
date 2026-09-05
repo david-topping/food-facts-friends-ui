@@ -40,12 +40,14 @@ export const BUILDING_FUND_CONTENT = {
       {
         icon: "groups",
         title: "True community ownership",
-        description: "This building will belong to the people of Penicuik, to shape and use as our needs change.",
+        description:
+          "This building will belong to the people of Penicuik, to shape and use as our needs change.",
       },
       {
         icon: "shield",
         title: "Future-proofing",
-        description: "Whatever challenges come next, we'll have a stable base to keep supporting our community.",
+        description:
+          "Whatever challenges come next, we'll have a stable base to keep supporting our community.",
       },
     ],
   },

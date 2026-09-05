@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import Reveal from "@/components/animation/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 import { Button } from "@/components/button/Button";
 
 type Props = {

@@ -6,12 +6,7 @@ type RevealProps = Omit<SlideProps, "in" | "timeout"> & {
   timeout?: number;
 };
 
-export default function Reveal({
-  children,
-  direction = "right",
-  timeout = 600,
-  ...props
-}: RevealProps) {
+export function Reveal({ children, direction = "right", timeout = 600, ...props }: RevealProps) {
   return (
     <Slide in timeout={timeout} direction={direction} {...props}>
       <Box>{children}</Box>

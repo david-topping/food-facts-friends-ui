@@ -6,7 +6,7 @@ import { stripePromise } from "@/stripe/stripe";
 import { elementsOptions } from "@/stripe/elementsOptions";
 import { useCreateDonation } from "@/hooks/useCreateDonation";
 
-import { DonationDetailsForm } from "./DonationDetialsForm";
+import { DonationDetailsForm } from "./DonationDetailsForm";
 import { StripePaymentForm } from "./StripePaymentForm";
 import type { DonationDetails } from "./donation.types";
 

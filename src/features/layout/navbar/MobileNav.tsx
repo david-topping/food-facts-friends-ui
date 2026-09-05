@@ -1,14 +1,14 @@
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import BrandLogo from "@/components/brand/BrandLogo";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import LogoGrey from "@/assets/images/brand/logo_grey.webp";
 import { useNavigate } from "react-router-dom";
 
 type MobileNavProps = {
   onMenuOpen?: () => void;
 };
-export default function MobileNav({ onMenuOpen }: MobileNavProps) {
+export function MobileNav({ onMenuOpen }: MobileNavProps) {
   const navigate = useNavigate();
 
   return (

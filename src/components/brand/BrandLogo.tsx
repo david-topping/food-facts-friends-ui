@@ -13,7 +13,7 @@ const sizeMap = {
   lg: { xs: 180, md: 220 },
 };
 
-export default function BrandLogo({ src, alt = "Brand logo", size = "md" }: BrandLogoProps) {
+export function BrandLogo({ src, alt = "Brand logo", size = "md" }: BrandLogoProps) {
   return (
     <Box
       component="img"

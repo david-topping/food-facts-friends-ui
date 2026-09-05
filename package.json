@@ -8,6 +8,8 @@
     "build": "tsc -b && vite build",
     "lint:fix": "eslint . --fix",
     "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -19,7 +21,6 @@
     "@stripe/react-stripe-js": "^5.4.1",
     "@stripe/stripe-js": "^8.6.1",
     "react": "^19.2.0",
-    "react-cookie-consent": "^10.0.1",
     "react-dom": "^19.2.0",
     "react-ga4": "^2.1.0",
     "react-router-dom": "^7.11.0",
@@ -41,6 +42,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.7.4",
     "semantic-release": "^25.0.2",
     "typescript": "~5.9.3",

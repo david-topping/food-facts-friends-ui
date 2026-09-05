@@ -10,7 +10,7 @@ type Props = {
   iconColor?: string;
 };
 
-export default function SocialMediaIcons({
+export function SocialMediaIcons({
   facebookUrl,
   linkedinUrl,
   instagramUrl,
