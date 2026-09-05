@@ -1,9 +1,9 @@
-import { Box, Button } from "@mui/material";
+import { Alert, Box, Button } from "@mui/material";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useConfirmDonation } from "../../../hooks/useConfirmDonation";
 
 export function StripePaymentForm({ amount }: { amount: number }) {
-  const { confirm, loading } = useConfirmDonation();
+  const { confirm, loading, error } = useConfirmDonation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +27,12 @@ export function StripePaymentForm({ amount }: { amount: number }) {
       >
         <PaymentElement />
       </Box>
+
+      {error && (
+        <Alert severity="error" sx={{ mt: 2 }}>
+          {error.message ?? "Something went wrong while processing your payment. Please try again."}
+        </Alert>
+      )}
 
       <Box sx={{ mt: 2, pt: 1.5, flexShrink: 0 }}>
         <Button type="submit" variant="contained" fullWidth disabled={loading} size="large">

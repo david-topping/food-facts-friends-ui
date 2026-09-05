@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Alert, Box, Stack, Typography } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
 
 import { stripePromise } from "../../../stripe/stripe";
@@ -19,7 +19,7 @@ const CONTENT_MAX_WIDTH = 520;
 export function FinancialDonationSection({ content }: FinancialDonationSectionProps) {
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  const { clientSecret, startDonation, loading } = useCreateDonation();
+  const { clientSecret, startDonation, loading, error } = useCreateDonation();
   const [donationData, setDonationData] = useState<DonationDetails | null>(null);
 
   const scrollToTopOfSection = () => {
@@ -62,11 +62,15 @@ export function FinancialDonationSection({ content }: FinancialDonationSectionPr
 
       <Box sx={{ width: "100%", maxWidth: CONTENT_MAX_WIDTH }}>
         {isDetailsStep && (
-          <DonationDetailsForm
-            loading={loading}
-            initialValues={donationData ?? undefined}
-            onSubmit={handleDetailsSubmit}
-          />
+          <Stack spacing={2}>
+            {error && <Alert severity="error">{error}</Alert>}
+
+            <DonationDetailsForm
+              loading={loading}
+              initialValues={donationData ?? undefined}
+              onSubmit={handleDetailsSubmit}
+            />
+          </Stack>
         )}
 
         {isPaymentStep && (
