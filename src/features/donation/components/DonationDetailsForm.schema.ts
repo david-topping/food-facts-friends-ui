@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { giftAidDetailsSchema } from "./GiftAidDetialsFields.scheama";
+import { giftAidDetailsSchema } from "./GiftAidDetailsFields.schema";
 
 export const PRESET_AMOUNTS = [5, 10, 20] as const;
 export type PresetAmount = (typeof PRESET_AMOUNTS)[number];

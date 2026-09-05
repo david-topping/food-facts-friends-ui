@@ -9,10 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 
-import { donationDetailsFormSchema, PRESET_AMOUNTS } from "./DonationDetialsForm.schema";
+import { donationDetailsFormSchema, PRESET_AMOUNTS } from "./DonationDetailsForm.schema";
 import type { DonationDetails } from "./donation.types";
-import type { GiftAidDetailsValues } from "./GiftAidDetialsFields";
-import { GiftAidDetailsFields } from "./GiftAidDetialsFields";
+import type { GiftAidDetailsValues } from "./GiftAidDetailsFields";
+import { GiftAidDetailsFields } from "./GiftAidDetailsFields";
 
 type DonationDetailsFormProps = {
   onSubmit: (data: DonationDetails) => void;

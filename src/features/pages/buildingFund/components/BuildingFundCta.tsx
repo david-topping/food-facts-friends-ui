@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Reveal from "@/components/animation/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 import { Button } from "@/components/button/Button";
 import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 
@@ -14,7 +14,11 @@ export function BuildingFundCta() {
 
         <Typography maxWidth="sm">{BUILDING_FUND_CONTENT.cta.description}</Typography>
 
-        <Button size="large" variant="contrast" onClick={() => navigate(BUILDING_FUND_CONTENT.cta.route)}>
+        <Button
+          size="large"
+          variant="contrast"
+          onClick={() => navigate(BUILDING_FUND_CONTENT.cta.route)}
+        >
           {BUILDING_FUND_CONTENT.cta.buttonLabel}
         </Button>
       </Stack>

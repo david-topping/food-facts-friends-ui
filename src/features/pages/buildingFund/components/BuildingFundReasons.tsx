@@ -5,7 +5,7 @@ import SavingsIcon from "@mui/icons-material/Savings";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ShieldIcon from "@mui/icons-material/Shield";
-import Reveal from "@/components/animation/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 
 const ICONS = {

@@ -9,13 +9,7 @@ type NavLinkProps = {
   active?: boolean;
 };
 
-export default function NavLink({
-  to,
-  label,
-  onClick,
-  variant = "button",
-  active = false,
-}: NavLinkProps) {
+export function NavLink({ to, label, onClick, variant = "button", active = false }: NavLinkProps) {
   return (
     <Typography
       component={RouterLink}

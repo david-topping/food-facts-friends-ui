@@ -1,6 +1,6 @@
 import { Typography, Stack, Box } from "@mui/material";
 import { Map } from "@/components/map/Map";
-import Reveal from "@/components/animation/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
 
 type Coordinates = {
   lat: number;

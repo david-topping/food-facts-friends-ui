@@ -1,4 +1,4 @@
 import type { z } from "zod";
-import { donationDetailsFormSchema } from "./DonationDetialsForm.schema";
+import { donationDetailsFormSchema } from "./DonationDetailsForm.schema";
 
 export type DonationDetails = z.infer<typeof donationDetailsFormSchema>;

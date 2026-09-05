@@ -1,6 +1,6 @@
 import { Typography, Box, Stack } from "@mui/material";
-import Reveal from "@/components/animation/Reveal";
-import BrandLogo from "@/components/brand/BrandLogo";
+import { Reveal } from "@/components/animation/Reveal";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 
 type Props = {
   title: string;

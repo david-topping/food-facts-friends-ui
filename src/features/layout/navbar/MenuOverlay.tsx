@@ -1,7 +1,7 @@
 import { Box, IconButton, Slide, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { APP_ROUTES } from "@/routes/routes";
-import NavLink from "./NavLink";
+import { NavLink } from "./NavLink";
 import { useLocation } from "react-router-dom";
 
 type MobileMenuOverlayProps = {
@@ -9,7 +9,7 @@ type MobileMenuOverlayProps = {
   onClose: () => void;
 };
 
-export default function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
+export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
   const { pathname } = useLocation();
 
   return (
