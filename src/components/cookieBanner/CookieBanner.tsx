@@ -1,20 +1,16 @@
 import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
 import { COOKIES_CONTENT } from "../../content/cookies.content";
-import { getCookieConsent, setCookieConsent } from "./cookieConsent";
 
 type CookieBannerProps = {
   open: boolean;
-  onAccept: () => void;
-  onReject: () => void;
+  onAcceptAll: () => void;
+  onAcceptEssential: () => void;
 };
 
-export function CookieBanner({ open, onAccept, onReject }: CookieBannerProps) {
+export function CookieBanner({ open, onAcceptAll, onAcceptEssential }: CookieBannerProps) {
   const theme = useTheme();
 
   if (!open) return null;
-
-  const existing = getCookieConsent();
-  if (existing) return null;
 
   return (
     <Box
@@ -24,7 +20,7 @@ export function CookieBanner({ open, onAccept, onReject }: CookieBannerProps) {
         right: 16,
         bottom: 16,
         zIndex: theme.zIndex.snackbar,
-        maxWidth: 520,
+        maxWidth: 640,
         mx: "auto",
         minHeight: 120,
         p: 2.5,
@@ -46,33 +42,12 @@ export function CookieBanner({ open, onAccept, onReject }: CookieBannerProps) {
         </Box>
 
         <Stack direction="row" spacing={1} justifyContent="flex-end">
-          <Button
-            variant="outlined"
-            onClick={() => {
-              setCookieConsent("rejected");
-              onReject();
-            }}
-            sx={{
-              opacity: 0.5,
-              color: "text.disabled",
-              borderColor: "action.disabled",
-              "&:hover": {
-                borderColor: "action.disabled",
-                backgroundColor: "transparent",
-              },
-            }}
-          >
-            {COOKIES_CONTENT.banner.actions.reject}
+          <Button variant="outlined" onClick={onAcceptEssential}>
+            {COOKIES_CONTENT.banner.actions.acceptEssential}
           </Button>
 
-          <Button
-            variant="contained"
-            onClick={() => {
-              setCookieConsent("accepted");
-              onAccept();
-            }}
-          >
-            {COOKIES_CONTENT.banner.actions.accept}
+          <Button variant="contained" onClick={onAcceptAll}>
+            {COOKIES_CONTENT.banner.actions.acceptAll}
           </Button>
         </Stack>
       </Stack>

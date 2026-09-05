@@ -14,13 +14,12 @@ export function MainLayout() {
   const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { hasConsent, showBanner, accept, reject } = useCookieConsent();
+  const { showBanner, acceptAll, acceptEssential } = useCookieConsent();
 
   return (
     <>
       <ScrollRestoration />
-
-      {hasConsent && <AnalyticsListener />}
+      {!showBanner && <AnalyticsListener />}
 
       <Box display="flex" flexDirection="column" minHeight="100vh">
         <Navbar isCollapsed={isMobile} onMenuOpen={() => setIsMenuOpen(true)} />
@@ -31,7 +30,11 @@ export function MainLayout() {
         <Footer />
       </Box>
 
-      <CookieBanner open={showBanner} onAccept={accept} onReject={reject} />
+      <CookieBanner
+        open={showBanner}
+        onAcceptAll={acceptAll}
+        onAcceptEssential={acceptEssential}
+      />
     </>
   );
 }
