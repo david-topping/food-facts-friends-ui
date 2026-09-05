@@ -13,7 +13,7 @@ export const ServicesPage = () => {
       <HeroText title={SERVICES_CONTENT.hero.title} subtitle={SERVICES_CONTENT.hero.subtitle} />
 
       {SERVICES_CONTENT.services.map((service, index) => (
-        <Section maxWidth="sm" variant={service.sectionVariant}>
+        <Section key={service.id} maxWidth="sm" variant={service.sectionVariant}>
           <Reveal direction={index % 2 === 1 ? "left" : "right"}>
             <EventSection
               title={service.title}

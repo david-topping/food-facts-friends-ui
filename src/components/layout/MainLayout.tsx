@@ -19,7 +19,8 @@ export function MainLayout() {
   return (
     <>
       <ScrollRestoration />
-      {!showBanner && <AnalyticsListener />}
+
+      <AnalyticsListener />
 
       <Box display="flex" flexDirection="column" minHeight="100vh">
         <Navbar isCollapsed={isMobile} onMenuOpen={() => setIsMenuOpen(true)} />
