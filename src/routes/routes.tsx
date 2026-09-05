@@ -1,10 +1,10 @@
-import { DonatePage } from "../features/pages/donate/DonatePage";
-import { DonationSuccessPage } from "../features/pages/donate/DonationSuccessPage";
-import { HomePage } from "../features/pages/home/HomePage";
-import { SupportersPage } from "../features/pages/supporters/SupportersPage";
-import { ContactPage } from "../features/pages/contact/ContactPage";
-import { ServicesPage } from "../features/pages/services/ServicesPage";
-import { BuildingFundPage } from "../features/pages/buildingFund/BuildingFundPage";
+import { DonatePage } from "@/features/pages/donate/DonatePage";
+import { DonationSuccessPage } from "@/features/pages/donate/DonationSuccessPage";
+import { HomePage } from "@/features/pages/home/HomePage";
+import { SupportersPage } from "@/features/pages/supporters/SupportersPage";
+import { ContactPage } from "@/features/pages/contact/ContactPage";
+import { ServicesPage } from "@/features/pages/services/ServicesPage";
+import { BuildingFundPage } from "@/features/pages/buildingFund/BuildingFundPage";
 
 export type AppRoute = {
   path: string;

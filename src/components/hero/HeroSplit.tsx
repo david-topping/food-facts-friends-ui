@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
-import { sectionBg, sectionText, type SectionVariant } from "../../theme/sectionVariants";
+import { sectionBg, sectionText, type SectionVariant } from "@/theme/sectionVariants";
 
 type HeroSplitProps = {
   image: string;

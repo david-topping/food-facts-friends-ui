@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import { BUILDING_FUND_CONTENT } from "../../content/buildingFund.content";
+import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 
 export function BuildingFundBanner() {
   return (

@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
+import { appConfig } from "@/config/appConfig";
 import { getCookieConsent, setCookieConsent, type CookieConsentValue } from "./cookieConsent";
 
 type ConsentState = CookieConsentValue | null;
 
-const forceBanner =
-  import.meta.env.DEV && import.meta.env.VITE_FORCE_COOKIE_BANNER === "true";
+const forceBanner = appConfig.forceCookieBanner;
 
 export function useCookieConsent() {
   const [consent, setConsent] = useState<ConsentState>(() =>

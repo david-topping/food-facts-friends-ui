@@ -1,11 +1,11 @@
 // ContactPage.tsx
-import { Page } from "../../../components/layout/Page";
-import { HeroText } from "../../../components/hero/HeroText";
+import { Page } from "@/components/layout/Page";
+import { HeroText } from "@/components/hero/HeroText";
 import { Paper } from "@mui/material";
 import { ContactDetails } from "./components/ContactDetials";
-import { Section } from "../../../components/layout/Section";
-import { CONTACT_CONTENT } from "../../../content/contact.content";
-import Reveal from "../../../components/animation/Reveal";
+import { Section } from "@/components/layout/Section";
+import { CONTACT_CONTENT } from "@/content/contact.content";
+import Reveal from "@/components/animation/Reveal";
 
 export const ContactPage = () => {
   return (

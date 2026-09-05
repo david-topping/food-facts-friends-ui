@@ -2,9 +2,9 @@ import { useRef, useState } from "react";
 import { Alert, Box, Stack, Typography } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
 
-import { stripePromise } from "../../../stripe/stripe";
-import { elementsOptions } from "../../../stripe/elementsOptions";
-import { useCreateDonation } from "../../../hooks/useCreateDonation";
+import { stripePromise } from "@/stripe/stripe";
+import { elementsOptions } from "@/stripe/elementsOptions";
+import { useCreateDonation } from "@/hooks/useCreateDonation";
 
 import { DonationDetailsForm } from "./DonationDetialsForm";
 import { StripePaymentForm } from "./StripePaymentForm";

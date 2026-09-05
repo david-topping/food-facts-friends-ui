@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Reveal from "../../../../components/animation/Reveal";
-import { Button } from "../../../../components/button/Button";
-import { BUILDING_FUND_CONTENT } from "../../../../content/buildingFund.content";
+import Reveal from "@/components/animation/Reveal";
+import { Button } from "@/components/button/Button";
+import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 
 export function BuildingFundCta() {
   const navigate = useNavigate();

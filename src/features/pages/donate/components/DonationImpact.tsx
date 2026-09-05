@@ -1,6 +1,6 @@
 import { Typography, Stack } from "@mui/material";
-import Reveal from "../../../../components/animation/Reveal";
-import StatisticBox from "../../../../components/statsBox/StatisticBox";
+import Reveal from "@/components/animation/Reveal";
+import StatisticBox from "@/components/statsBox/StatisticBox";
 
 type DonationImpactStat = {
   value: string;
