@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { createDonation, type CreateDonationRequest } from "../api/donations.api";
+import { createDonation, type CreateDonationRequest } from "@/api/donations.api";
 
 export function useCreateDonation() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);

@@ -1,5 +1,5 @@
 import { Box, Typography, Stack } from "@mui/material";
-import { GLOBAL_CONTENT } from "../../../content/global.content";
+import { GLOBAL_CONTENT } from "@/content/global.content";
 import SocialMediaIcons from "./components/SocialMediaIcons";
 
 export default function Footer() {

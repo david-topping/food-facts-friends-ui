@@ -1,6 +1,6 @@
 import { Alert, Box, Button } from "@mui/material";
 import { PaymentElement } from "@stripe/react-stripe-js";
-import { useConfirmDonation } from "../../../hooks/useConfirmDonation";
+import { useConfirmDonation } from "@/hooks/useConfirmDonation";
 
 export function StripePaymentForm({ amount }: { amount: number }) {
   const { confirm, loading, error } = useConfirmDonation();

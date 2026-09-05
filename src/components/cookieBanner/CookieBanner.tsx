@@ -1,5 +1,5 @@
 import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
-import { COOKIES_CONTENT } from "../../content/cookies.content";
+import { COOKIES_CONTENT } from "@/content/cookies.content";
 
 type CookieBannerProps = {
   open: boolean;

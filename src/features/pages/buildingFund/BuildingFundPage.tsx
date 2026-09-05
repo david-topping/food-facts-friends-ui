@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Page } from "../../../components/layout/Page";
-import { Section } from "../../../components/layout/Section";
-import { HeroImage } from "../../../components/hero/HeroImage";
-import buyBuildingHero from "../../../assets/images/hero/buy_building_hero.webp";
-import { BUILDING_FUND_CONTENT } from "../../../content/buildingFund.content";
+import { Page } from "@/components/layout/Page";
+import { Section } from "@/components/layout/Section";
+import { HeroImage } from "@/components/hero/HeroImage";
+import buyBuildingHero from "@/assets/images/hero/buy_building_hero.webp";
+import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 import { BuildingFundReasons } from "./components/BuildingFundReasons";
 import { BuildingFundCta } from "./components/BuildingFundCta";
 

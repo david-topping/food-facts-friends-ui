@@ -1,6 +1,6 @@
 import { Box, IconButton, Slide, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { APP_ROUTES } from "../../../routes/routes";
+import { APP_ROUTES } from "@/routes/routes";
 import NavLink from "./NavLink";
 import { useLocation } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { useLocation } from "react-router-dom";
-import { APP_ROUTES } from "../../../routes/routes";
+import { APP_ROUTES } from "@/routes/routes";
 import NavLink from "./NavLink";
 
 export default function DesktopNav() {

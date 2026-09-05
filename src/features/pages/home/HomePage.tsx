@@ -1,14 +1,14 @@
-import { Page } from "../../../components/layout/Page";
-import { Section } from "../../../components/layout/Section";
-import homeHero from "../../../assets/images/hero/home_hero.webp";
-import logo from "../../../assets/images/brand/logo.webp";
-import { HeroImage } from "../../../components/hero/HeroImage";
-import { HOME_CONTENT } from "../../../content/home.content";
+import { Page } from "@/components/layout/Page";
+import { Section } from "@/components/layout/Section";
+import homeHero from "@/assets/images/hero/home_hero.webp";
+import logo from "@/assets/images/brand/logo.webp";
+import { HeroImage } from "@/components/hero/HeroImage";
+import { HOME_CONTENT } from "@/content/home.content";
 import { HomeHeroIntro } from "./components/HeroIntro";
 import { FindUs } from "./components/FindUs";
 import { NeedSupport } from "./components/NeedSupport";
 import { useNavigate } from "react-router-dom";
-import { BuildingFundBanner } from "../../../components/buildingFundBanner/BuildingFundBanner";
+import { BuildingFundBanner } from "@/components/buildingFundBanner/BuildingFundBanner";
 
 export const HomePage = () => {
   const navigate = useNavigate();

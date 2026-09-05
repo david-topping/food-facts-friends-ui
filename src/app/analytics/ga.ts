@@ -1,5 +1,5 @@
 import ReactGA from "react-ga4";
-import { appConfig } from "../../config/appConfig";
+import { appConfig } from "@/config/appConfig";
 
 export const initGA = () => {
   ReactGA.initialize(appConfig.googleAnalyticsId);

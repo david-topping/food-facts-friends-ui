@@ -1,3 +1,5 @@
+import { appConfig } from "@/config/appConfig";
+
 export type GiftAidDetails = {
   firstName: string;
   lastName: string;
@@ -25,10 +27,8 @@ export type CreateDonationResponse = {
   clientSecret: string;
 };
 
-const API_BASE_URL = import.meta.env.VITE_FFF_API_BASE_URL;
-
 export async function createDonation(payload: CreateDonationRequest) {
-  const res = await fetch(`${API_BASE_URL}/donations`, {
+  const res = await fetch(`${appConfig.apiBaseUrl}/donations`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

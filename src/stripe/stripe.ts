@@ -1,3 +1,4 @@
 import { loadStripe } from "@stripe/stripe-js";
+import { appConfig } from "@/config/appConfig";
 
-export const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+export const stripePromise = loadStripe(appConfig.stripePublishableKey);

@@ -1,9 +1,9 @@
 import { CheckCircleOutline, ErrorOutline, HelpOutline } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import { Link, useSearchParams } from "react-router-dom";
-import { Page } from "../../../components/layout/Page";
-import { Section } from "../../../components/layout/Section";
-import { DONATION_SUCCESS_CONTENT } from "../../../content/donate.content";
+import { Page } from "@/components/layout/Page";
+import { Section } from "@/components/layout/Section";
+import { DONATION_SUCCESS_CONTENT } from "@/content/donate.content";
 
 type RedirectStatus = "succeeded" | "failed" | "canceled";
 

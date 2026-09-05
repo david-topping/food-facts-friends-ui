@@ -1,10 +1,10 @@
-import { Page } from "../../../components/layout/Page";
-import { Section } from "../../../components/layout/Section";
-import { HeroText } from "../../../components/hero/HeroText";
+import { Page } from "@/components/layout/Page";
+import { Section } from "@/components/layout/Section";
+import { HeroText } from "@/components/hero/HeroText";
 import { EventSection } from "./components/EventSection";
 import { OpeningHours } from "./components/OpeningHours";
-import { SERVICES_CONTENT } from "../../../content/services.content";
-import Reveal from "../../../components/animation/Reveal";
+import { SERVICES_CONTENT } from "@/content/services.content";
+import Reveal from "@/components/animation/Reveal";
 
 // TODO: update this ;)
 export const ServicesPage = () => {
