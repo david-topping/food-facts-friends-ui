@@ -1,6 +1,6 @@
 const CONSENT_KEY = "fff_cookie_consent";
 
-export type CookieConsentValue = "accepted" | "rejected";
+export type CookieConsentValue = "accepted" | "essential";
 
 export function setCookieConsent(value: CookieConsentValue, days = 180) {
   const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
@@ -14,7 +14,8 @@ export function getCookieConsent(): CookieConsentValue | null {
 
   const value = match.split("=")[1];
 
-  if (value === "accepted" || value === "rejected") return value;
+  if (value === "accepted") return "accepted";
+  if (value === "essential" || value === "rejected") return "essential";
 
   return null;
 }

@@ -1,11 +1,11 @@
 export const COOKIES_CONTENT = {
   banner: {
-    title: "Essential Cookies",
+    title: "Cookies",
     message:
-      "We use required cookies to make this site work properly and keep it secure. These cookies are necessary for core functionality and cannot be disabled.",
+      "We use essential cookies to make this site work, keep it secure and understand how it's used. Choose whether to accept all cookies or continue with essential cookies only.",
     actions: {
-      accept: "Accept",
-      reject: "Reject",
+      acceptAll: "Accept cookies",
+      acceptEssential: "Essential cookies",
     },
   },
 } as const;
