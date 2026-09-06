@@ -7,15 +7,28 @@ const { trackPageView } = vi.hoisted(() => ({ trackPageView: vi.fn() }));
 
 vi.mock("./ga", () => ({ trackPageView }));
 
-describe("AnalyticsListener", () => {
-  it("tracks a pageview for the current path", () => {
-    renderWithProviders(
-      <Routes>
-        <Route path="/contact" element={<AnalyticsListener />} />
-      </Routes>,
-      { initialEntries: ["/contact"] },
-    );
+function renderAt(path: string) {
+  return renderWithProviders(
+    <Routes>
+      <Route path="*" element={<AnalyticsListener />} />
+    </Routes>,
+    { initialEntries: [path] },
+  );
+}
 
-    expect(trackPageView).toHaveBeenCalledWith("/contact");
+describe("AnalyticsListener", () => {
+  it("tracks a pageview for the current path including the query string", () => {
+    renderAt("/donate/success?redirect_status=succeeded");
+    expect(trackPageView).toHaveBeenCalledWith("/donate/success?redirect_status=succeeded");
+  });
+
+  it("sets the document title from the matched route", () => {
+    renderAt("/contact");
+    expect(document.title).toBe("Contact Us — Food Facts Friends");
+  });
+
+  it("falls back to the site name for an unknown route", () => {
+    renderAt("/nowhere");
+    expect(document.title).toBe("Food Facts Friends");
   });
 });

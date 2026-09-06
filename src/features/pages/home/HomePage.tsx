@@ -9,6 +9,7 @@ import { FindUs } from "./components/FindUs";
 import { NeedSupport } from "./components/NeedSupport";
 import { useNavigate } from "react-router-dom";
 import { BuildingFundBanner } from "@/components/buildingFundBanner/BuildingFundBanner";
+import { trackEvent } from "@/app/analytics/ga";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -32,7 +33,10 @@ export const HomePage = () => {
           title={HOME_CONTENT.needSupport.title}
           description={HOME_CONTENT.needSupport.description}
           buttonText={HOME_CONTENT.needSupport.button.label}
-          onButtonClick={() => navigate(HOME_CONTENT.needSupport.button.route)}
+          onButtonClick={() => {
+            trackEvent("cta_click", { location: "home_need_support" });
+            navigate(HOME_CONTENT.needSupport.button.route);
+          }}
         />
       </Section>
 

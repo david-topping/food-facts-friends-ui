@@ -1,9 +1,20 @@
+import { useEffect } from "react";
 import { Alert, Box, Button } from "@mui/material";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useConfirmDonation } from "@/hooks/useConfirmDonation";
+import { trackEvent } from "@/app/analytics/ga";
 
 export function StripePaymentForm({ amount }: { amount: number }) {
   const { confirm, loading, error } = useConfirmDonation();
+
+  useEffect(() => {
+    if (error) {
+      trackEvent("payment_error", {
+        code: error.code,
+        decline_code: error.decline_code,
+      });
+    }
+  }, [error]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
