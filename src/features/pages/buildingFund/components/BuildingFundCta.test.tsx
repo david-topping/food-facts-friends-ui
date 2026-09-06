@@ -1,7 +1,11 @@
+import { vi } from "vitest";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { renderWithProviders, screen, userEvent } from "@/test/utils";
 import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 import { BuildingFundCta } from "./BuildingFundCta";
+
+const { trackEvent } = vi.hoisted(() => ({ trackEvent: vi.fn() }));
+vi.mock("@/app/analytics/ga", () => ({ trackEvent }));
 
 function LocationProbe() {
   return <div data-testid="pathname">{useLocation().pathname}</div>;
@@ -36,5 +40,6 @@ describe("BuildingFundCta", () => {
       screen.getByRole("button", { name: BUILDING_FUND_CONTENT.cta.buttonLabel }),
     );
     expect(screen.getByTestId("pathname")).toHaveTextContent(BUILDING_FUND_CONTENT.cta.route);
+    expect(trackEvent).toHaveBeenCalledWith("cta_click", { location: "building_fund_cta" });
   });
 });

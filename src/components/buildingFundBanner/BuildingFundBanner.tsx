@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { trackEvent } from "@/app/analytics/ga";
 import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 
 export function BuildingFundBanner() {
@@ -28,6 +29,7 @@ export function BuildingFundBanner() {
         <Typography
           component={RouterLink}
           to={BUILDING_FUND_CONTENT.banner.route}
+          onClick={() => trackEvent("cta_click", { location: "building_fund_banner" })}
           variant="body1"
           fontWeight={700}
           sx={{ color: "inherit", textDecoration: "underline" }}

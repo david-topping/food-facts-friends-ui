@@ -1,8 +1,11 @@
+import { useEffect } from "react";
 import { CheckCircleOutline, ErrorOutline, HelpOutline } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import { Link, useSearchParams } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { Section } from "@/components/layout/Section";
+import { trackEvent } from "@/app/analytics/ga";
+import { takePendingDonation } from "@/features/donation/pendingDonation";
 import { DONATION_SUCCESS_CONTENT } from "@/content/donate.content";
 
 type RedirectStatus = "succeeded" | "failed" | "canceled";
@@ -22,6 +25,24 @@ function getIcon(status: RedirectStatus | "unknown") {
 export function DonationSuccessPage() {
   const [searchParams] = useSearchParams();
   const status = getStatus(searchParams.get("redirect_status"));
+  const transactionId = searchParams.get("payment_intent") ?? undefined;
+
+  useEffect(() => {
+    const pending = takePendingDonation();
+
+    if (status === "succeeded") {
+      trackEvent("purchase", {
+        transaction_id: transactionId,
+        currency: "GBP",
+        value: pending?.amount,
+        gift_aid: pending?.giftAid,
+      });
+    } else if (status === "failed") {
+      trackEvent("donation_failed", { transaction_id: transactionId });
+    } else if (status === "canceled") {
+      trackEvent("donation_cancelled", { transaction_id: transactionId });
+    }
+  }, [status, transactionId]);
 
   const ui = DONATION_SUCCESS_CONTENT[status];
 
