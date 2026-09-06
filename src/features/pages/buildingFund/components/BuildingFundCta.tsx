@@ -21,7 +21,7 @@ export function BuildingFundCta() {
         <Box>
           <Button
             size="large"
-            variant="contrast"
+            variant="primary"
             endIcon={<ArrowForwardIcon />}
             onClick={() => {
               trackEvent("cta_click", { location: "building_fund_cta" });

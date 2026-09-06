@@ -39,7 +39,7 @@ export function HomeHero({ title, statement, image }: HomeHeroProps) {
           >
             {statement}
           </Typography>
-          <Stack direction="row" spacing={1.5} sx={{ pt: 0.5, flexWrap: "wrap", gap: 1.5 }}>
+          <Stack direction="row" useFlexGap spacing={1.5} sx={{ pt: 0.5, flexWrap: "wrap" }}>
             <Button
               component={RouterLink}
               to="/donate"
