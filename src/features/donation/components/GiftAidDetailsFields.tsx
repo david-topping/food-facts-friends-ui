@@ -1,14 +1,5 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
-
-export type GiftAidDetailsValues = {
-  firstName: string;
-  lastName: string;
-  addressLine1: string;
-  addressLine2: string;
-  city: string;
-  postcode: string;
-  country: string;
-};
+import type { GiftAidDetailsValues } from "./donation.types";
 
 export type GiftAidDetailsErrors = Partial<Record<keyof GiftAidDetailsValues, string>>;
 
