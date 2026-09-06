@@ -1,6 +1,9 @@
-import { Typography, Stack, Box } from "@mui/material";
-import { Map } from "@/components/map/Map";
+import { Suspense } from "react";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
+import { lazyNamed } from "@/helpers/lazyNamed";
 import { Reveal } from "@/components/animation/Reveal";
+
+const Map = lazyNamed(() => import("@/components/map/Map"), "Map");
 
 type Coordinates = {
   lat: number;
@@ -11,6 +14,18 @@ type FindUsProps = {
   title?: string;
   coordinates: Coordinates;
 };
+
+function MapFallback() {
+  return (
+    <Skeleton
+      animation="wave"
+      variant="rounded"
+      width="100%"
+      height={360}
+      sx={{ borderRadius: 3 }}
+    />
+  );
+}
 
 export function FindUs({ title, coordinates }: FindUsProps) {
   return (
@@ -23,7 +38,9 @@ export function FindUs({ title, coordinates }: FindUsProps) {
 
       <Reveal direction="left">
         <Box>
-          <Map center={coordinates} />
+          <Suspense fallback={<MapFallback />}>
+            <Map center={coordinates} />
+          </Suspense>
         </Box>
       </Reveal>
     </Stack>

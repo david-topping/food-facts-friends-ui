@@ -1,10 +1,24 @@
-import { DonatePage } from "@/features/pages/donate/DonatePage";
-import { DonationSuccessPage } from "@/features/pages/donate/DonationSuccessPage";
-import { HomePage } from "@/features/pages/home/HomePage";
-import { SupportersPage } from "@/features/pages/supporters/SupportersPage";
-import { ContactPage } from "@/features/pages/contact/ContactPage";
-import { ServicesPage } from "@/features/pages/services/ServicesPage";
-import { BuildingFundPage } from "@/features/pages/buildingFund/BuildingFundPage";
+import { lazyNamed } from "@/helpers/lazyNamed";
+
+const HomePage = lazyNamed(() => import("@/features/pages/home/HomePage"), "HomePage");
+const DonatePage = lazyNamed(() => import("@/features/pages/donate/DonatePage"), "DonatePage");
+const DonationSuccessPage = lazyNamed(
+  () => import("@/features/pages/donate/DonationSuccessPage"),
+  "DonationSuccessPage",
+);
+const ServicesPage = lazyNamed(
+  () => import("@/features/pages/services/ServicesPage"),
+  "ServicesPage",
+);
+const SupportersPage = lazyNamed(
+  () => import("@/features/pages/supporters/SupportersPage"),
+  "SupportersPage",
+);
+const ContactPage = lazyNamed(() => import("@/features/pages/contact/ContactPage"), "ContactPage");
+const BuildingFundPage = lazyNamed(
+  () => import("@/features/pages/buildingFund/BuildingFundPage"),
+  "BuildingFundPage",
+);
 
 export type AppRoute = {
   path: string;
