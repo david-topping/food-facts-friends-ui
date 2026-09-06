@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { TextBlock } from "@/components/textBlock/TextBlock";
 
 type ItemDonationInformationProps = {
   title?: string;
@@ -10,19 +10,13 @@ export function ItemDonationInformation({
   description,
 }: ItemDonationInformationProps) {
   return (
-    <Stack
-      spacing={2}
-      alignItems="center"
-      textAlign="center"
-      sx={{
-        mx: "auto",
-      }}
-    >
-      <Typography variant="h4" fontWeight={600}>
-        {title}
-      </Typography>
-
-      <Typography color="text.secondary">{description}</Typography>
-    </Stack>
+    <TextBlock
+      title={title}
+      titleVariant="h4"
+      titleSx={{ fontWeight: 600 }}
+      subtitle={description}
+      subtitleColor="text.secondary"
+      sx={{ mx: "auto" }}
+    />
   );
 }

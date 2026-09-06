@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { Button } from "@mui/material";
+import { Page } from "@/components/layout/Page";
+import { Section } from "@/components/layout/Section";
+import { TextBlock } from "@/components/textBlock/TextBlock";
 
 export const NotFoundPage = () => (
-  <div style={{ padding: "2rem", textAlign: "center" }}>
-    <h1>404</h1>
-    <p>Sorry, that page doesn’t exist.</p>
-    <Link to="/">Go back home</Link>
-  </div>
+  <Page>
+    <Section maxWidth="sm">
+      <TextBlock title="404" subtitle="Sorry, that page doesn't exist.">
+        <Button component={RouterLink} to="/" variant="contained" size="large">
+          Go back home
+        </Button>
+      </TextBlock>
+    </Section>
+  </Page>
 );
