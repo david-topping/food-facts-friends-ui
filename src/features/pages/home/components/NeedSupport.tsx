@@ -28,7 +28,7 @@ export function NeedSupport({ title, description, buttonText, onButtonClick }: P
         />
         <Button
           size="large"
-          variant="contrast"
+          variant="primary"
           onClick={onButtonClick}
           endIcon={<ArrowForwardIcon />}
           sx={{ flexShrink: 0 }}

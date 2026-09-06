@@ -11,8 +11,8 @@ describe("Button", () => {
     expect(onClick).toHaveBeenCalledOnce();
   });
 
-  it("renders the contrast variant", () => {
-    renderWithProviders(<Button variant="contrast">Find out more</Button>);
+  it("renders the outline variant", () => {
+    renderWithProviders(<Button variant="outline">Find out more</Button>);
     expect(screen.getByRole("button", { name: "Find out more" })).toBeInTheDocument();
   });
 

@@ -28,6 +28,10 @@ export function DonationSuccessPage() {
   const transactionId = searchParams.get("payment_intent") ?? undefined;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const pending = takePendingDonation();
 
     if (status === "succeeded") {
