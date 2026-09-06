@@ -8,8 +8,8 @@ describe("HeroText", () => {
     expect(screen.getByText("Your generosity matters")).toBeInTheDocument();
   });
 
-  it("supports a variant override", () => {
-    renderWithProviders(<HeroText title="Title" subtitle="Subtitle" variant="light" />);
-    expect(screen.getByRole("heading", { name: "Title" })).toBeInTheDocument();
+  it("renders an eyebrow when provided", () => {
+    renderWithProviders(<HeroText eyebrow="Donate" title="Title" subtitle="Subtitle" />);
+    expect(screen.getByText("Donate")).toBeInTheDocument();
   });
 });

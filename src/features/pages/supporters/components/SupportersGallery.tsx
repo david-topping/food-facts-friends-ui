@@ -1,4 +1,5 @@
-import { Box, Fade } from "@mui/material";
+import { Box } from "@mui/material";
+import { tokens } from "@/theme/tokens";
 
 type SupportersGalleryProps = {
   logos: string[];
@@ -11,45 +12,40 @@ export const SupportersGallery = ({ logos }: SupportersGalleryProps) => {
         display: "grid",
         gridTemplateColumns: {
           xs: "repeat(2, 1fr)",
-          md: "repeat(3, 1fr)",
+          sm: "repeat(3, 1fr)",
+          md: "repeat(4, 1fr)",
         },
-        gap: 2,
-        overflow: "hidden",
+        gap: 1.5,
       }}
     >
-      {logos.map((logo, index) => (
-        <Fade
+      {logos.map((logo) => (
+        <Box
           key={logo}
-          in
-          timeout={400}
-          style={{
-            transitionDelay: `${index * 100}ms`,
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            p: 3,
+            minHeight: 128,
+            borderRadius: `${tokens.radius.md}px`,
+            border: `1px solid ${tokens.color.hairline}`,
+            bgcolor: tokens.color.paper,
           }}
         >
           <Box
+            component="img"
+            src={logo}
+            alt="Supporter logo"
+            loading="lazy"
             sx={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              p: 2,
+              maxWidth: "100%",
+              maxHeight: 72,
+              objectFit: "contain",
+              transition: "transform 200ms ease",
+              "&:hover": { transform: "scale(1.04)" },
             }}
-          >
-            <Box
-              component="img"
-              src={logo}
-              alt="Supporter logo"
-              sx={{
-                width: "100%",
-                maxWidth: "100%",
-                maxHeight: 150,
-                objectFit: "contain",
-                opacity: 0.85,
-              }}
-            />
-          </Box>
-        </Fade>
+          />
+        </Box>
       ))}
     </Box>
   );

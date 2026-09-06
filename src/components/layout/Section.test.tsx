@@ -12,9 +12,9 @@ describe("Section", () => {
     expect(screen.getByText("Body")).toBeInTheDocument();
   });
 
-  it.each(["default", "light", "main", "dark"] as const)("renders the %s variant", (variant) => {
+  it.each(["default", "paper", "green", "forest"] as const)("renders the %s variant", (variant) => {
     renderWithProviders(
-      <Section variant={variant} maxWidth="sm">
+      <Section variant={variant} maxWidth="sm" compact>
         <p>{variant}</p>
       </Section>,
     );

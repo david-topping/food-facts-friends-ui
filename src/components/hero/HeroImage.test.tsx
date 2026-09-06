@@ -1,4 +1,4 @@
-import { renderWithProviders } from "@/test/utils";
+import { renderWithProviders, screen } from "@/test/utils";
 import { HeroImage } from "./HeroImage";
 
 describe("HeroImage", () => {
@@ -9,8 +9,17 @@ describe("HeroImage", () => {
     expect(section).toHaveStyle({ backgroundImage: "url(/hero.webp)" });
   });
 
-  it("accepts a custom height", () => {
-    const { container } = renderWithProviders(<HeroImage image="/hero.webp" height="50vh" />);
+  it("renders overlaid content when provided", () => {
+    renderWithProviders(
+      <HeroImage image="/hero.webp">
+        <h1>Hero headline</h1>
+      </HeroImage>,
+    );
+    expect(screen.getByRole("heading", { name: "Hero headline" })).toBeInTheDocument();
+  });
+
+  it("can disable the gradient overlay", () => {
+    const { container } = renderWithProviders(<HeroImage image="/hero.webp" overlay={false} />);
     expect(container.querySelector("section")).toBeInTheDocument();
   });
 });

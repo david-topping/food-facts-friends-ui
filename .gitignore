@@ -25,3 +25,6 @@ dist-ssr
 .env
 .claude
 coverage
+
+# Skills — rehydrated from skills-lock.json via `npx skills install`
+.agents

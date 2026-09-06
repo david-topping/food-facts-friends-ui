@@ -1,24 +1,48 @@
-import { Box } from "@mui/material";
-import type { ResponsiveStyleValue } from "@mui/system";
+import { Box, Container } from "@mui/material";
+import type { ReactNode } from "react";
 
-type HeroSectionProps = {
+type HeroImageProps = {
   image: string;
-  height?: ResponsiveStyleValue<string | number>;
+  minHeight?: { xs: string; md: string } | string;
+  overlay?: boolean;
+  children?: ReactNode;
 };
 
-export const HeroImage = ({ image, height = "30vh" }: HeroSectionProps) => {
+export const HeroImage = ({
+  image,
+  minHeight = { xs: "38dvh", md: "44dvh" },
+  overlay = true,
+  children,
+}: HeroImageProps) => {
   return (
     <Box
       component="section"
       sx={{
+        position: "relative",
         width: "100%",
-        height,
+        minHeight,
+        display: "flex",
+        alignItems: "flex-end",
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        display: "flex",
-        alignItems: "center",
       }}
-    ></Box>
+    >
+      {overlay && (
+        <Box
+          aria-hidden
+          sx={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(180deg, rgba(34,39,35,0) 45%, rgba(34,39,35,0.5) 100%)",
+          }}
+        />
+      )}
+      {children && (
+        <Container maxWidth="lg" sx={{ position: "relative", pb: { xs: 4, md: 6 } }}>
+          {children}
+        </Container>
+      )}
+    </Box>
   );
 };

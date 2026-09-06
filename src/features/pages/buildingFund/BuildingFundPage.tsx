@@ -1,34 +1,40 @@
-import { Box } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Page } from "@/components/layout/Page";
 import { Section } from "@/components/layout/Section";
 import { HeroImage } from "@/components/hero/HeroImage";
-import { TextBlock } from "@/components/textBlock/TextBlock";
 import buyBuildingHero from "@/assets/images/hero/buy_building_hero.webp";
 import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
+import { tokens } from "@/theme/tokens";
 import { BuildingFundReasons } from "./components/BuildingFundReasons";
 import { BuildingFundCta } from "./components/BuildingFundCta";
 
 export const BuildingFundPage = () => {
   return (
     <Page>
-      <Box sx={{ display: { xs: "block", md: "none" } }}>
-        <HeroImage image={buyBuildingHero} />
-      </Box>
+      <HeroImage image={buyBuildingHero}>
+        <Stack spacing={1.5} sx={{ maxWidth: 640 }}>
+          <Typography variant="overline" sx={{ color: tokens.color.cream }}>
+            The building fund
+          </Typography>
+          <Typography variant="h1" sx={{ color: "#FFFFFF" }}>
+            {BUILDING_FUND_CONTENT.hero.title}
+          </Typography>
+        </Stack>
+      </HeroImage>
 
-      <Section variant="default" maxWidth="md">
-        <TextBlock
-          title={BUILDING_FUND_CONTENT.hero.title}
-          subtitle={BUILDING_FUND_CONTENT.hero.subtitle}
-          subtitleVariant="h6"
-          subtitleColor="text.secondary"
-        />
+      <Section compact>
+        <Typography
+          sx={{ maxWidth: 640, fontSize: { xs: "1.1rem", md: "1.25rem" }, color: "text.secondary" }}
+        >
+          {BUILDING_FUND_CONTENT.hero.subtitle}
+        </Typography>
       </Section>
 
-      <Section variant="dark">
+      <Section variant="green">
         <BuildingFundCta />
       </Section>
 
-      <Section variant="default" maxWidth="lg">
+      <Section>
         <BuildingFundReasons />
       </Section>
     </Page>

@@ -1,7 +1,9 @@
+import { Box, Stack } from "@mui/material";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
 import { Reveal } from "@/components/animation/Reveal";
 import { Button } from "@/components/button/Button";
-import { TextBlock } from "@/components/textBlock/TextBlock";
+import { SectionHeading } from "@/components/sectionHeading/SectionHeading";
 import { trackEvent } from "@/app/analytics/ga";
 import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 
@@ -10,23 +12,26 @@ export function BuildingFundCta() {
 
   return (
     <Reveal>
-      <TextBlock
-        title={BUILDING_FUND_CONTENT.cta.title}
-        subtitle={BUILDING_FUND_CONTENT.cta.description}
-        spacing={3}
-        sx={{ maxWidth: "sm", mx: "auto" }}
-      >
-        <Button
-          size="large"
-          variant="contrast"
-          onClick={() => {
-            trackEvent("cta_click", { location: "building_fund_cta" });
-            navigate(BUILDING_FUND_CONTENT.cta.route);
-          }}
-        >
-          {BUILDING_FUND_CONTENT.cta.buttonLabel}
-        </Button>
-      </TextBlock>
+      <Stack spacing={3.5} sx={{ maxWidth: 620 }}>
+        <SectionHeading
+          title={BUILDING_FUND_CONTENT.cta.title}
+          intro={BUILDING_FUND_CONTENT.cta.description}
+          eyebrowColor="#4F6B57"
+        />
+        <Box>
+          <Button
+            size="large"
+            variant="contrast"
+            endIcon={<ArrowForwardIcon />}
+            onClick={() => {
+              trackEvent("cta_click", { location: "building_fund_cta" });
+              navigate(BUILDING_FUND_CONTENT.cta.route);
+            }}
+          >
+            {BUILDING_FUND_CONTENT.cta.buttonLabel}
+          </Button>
+        </Box>
+      </Stack>
     </Reveal>
   );
 }

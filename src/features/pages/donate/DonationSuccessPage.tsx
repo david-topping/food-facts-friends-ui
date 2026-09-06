@@ -16,10 +16,10 @@ function getStatus(status: string | null): RedirectStatus | "unknown" {
 }
 
 function getIcon(status: RedirectStatus | "unknown") {
-  if (status === "succeeded") return <CheckCircleOutline color="success" sx={{ fontSize: 56 }} />;
-  if (status === "failed") return <ErrorOutline color="error" sx={{ fontSize: 56 }} />;
-  if (status === "canceled") return <HelpOutline color="warning" sx={{ fontSize: 56 }} />;
-  return <HelpOutline color="action" sx={{ fontSize: 56 }} />;
+  if (status === "succeeded") return <CheckCircleOutline color="success" sx={{ fontSize: 52 }} />;
+  if (status === "failed") return <ErrorOutline color="error" sx={{ fontSize: 52 }} />;
+  if (status === "canceled") return <HelpOutline color="warning" sx={{ fontSize: 52 }} />;
+  return <HelpOutline color="action" sx={{ fontSize: 52 }} />;
 }
 
 export function DonationSuccessPage() {
@@ -49,36 +49,33 @@ export function DonationSuccessPage() {
   return (
     <Page>
       <Section>
-        <Stack spacing={2.5} alignItems="center" sx={{ textAlign: "center" }}>
+        <Stack spacing={2} sx={{ maxWidth: 520 }}>
           {getIcon(status)}
-
           <Typography variant="h2">{ui.title}</Typography>
+          <Typography color="text.secondary" sx={{ fontSize: "1.05rem" }}>
+            {ui.message}
+          </Typography>
 
-          <Typography color="text.secondary">{ui.message}</Typography>
-        </Stack>
-      </Section>
-
-      <Section maxWidth="sm">
-        <Stack spacing={1.5}>
-          <Button
-            component={Link}
-            to={ui.primaryAction.to}
-            variant="contained"
-            size="large"
-            fullWidth
-          >
-            {ui.primaryAction.label}
-          </Button>
-
-          <Button
-            component={Link}
-            to={ui.secondaryAction.to}
-            variant="outlined"
-            size="large"
-            fullWidth
-          >
-            {ui.secondaryAction.label}
-          </Button>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ pt: 1.5 }}>
+            <Button
+              component={Link}
+              to={ui.primaryAction.to}
+              variant="contained"
+              color="accent"
+              size="large"
+            >
+              {ui.primaryAction.label}
+            </Button>
+            <Button
+              component={Link}
+              to={ui.secondaryAction.to}
+              variant="outlined"
+              color="primary"
+              size="large"
+            >
+              {ui.secondaryAction.label}
+            </Button>
+          </Stack>
         </Stack>
       </Section>
     </Page>

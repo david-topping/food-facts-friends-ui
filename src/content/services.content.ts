@@ -17,7 +17,7 @@ export const SERVICES_CONTENT = {
     {
       id: "fff-diner",
       sectionVariant: "dark",
-      subtitle: "Coming January 2026",
+      subtitle: undefined,
       title: "Food Facts Friends Diner",
       description:
         "A friendly, affordable community diner offering a two-course meal for families. Adults dine for £2.50, and children eat free, in a welcoming neighbourhood setting.",

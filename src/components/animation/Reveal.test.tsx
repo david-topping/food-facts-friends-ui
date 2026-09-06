@@ -11,12 +11,12 @@ describe("Reveal", () => {
     expect(screen.getByText("Revealed content")).toBeInTheDocument();
   });
 
-  it("accepts a direction override", () => {
+  it("accepts a stagger delay", () => {
     renderWithProviders(
-      <Reveal direction="left">
-        <p>From the left</p>
+      <Reveal delay={80}>
+        <p>Delayed content</p>
       </Reveal>,
     );
-    expect(screen.getByText("From the left")).toBeInTheDocument();
+    expect(screen.getByText("Delayed content")).toBeInTheDocument();
   });
 });

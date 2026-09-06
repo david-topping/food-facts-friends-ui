@@ -1,13 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { Page } from "@/components/layout/Page";
 import { Section } from "@/components/layout/Section";
 import homeHero from "@/assets/images/hero/home_hero.webp";
-import logo from "@/assets/images/brand/logo.webp";
-import { HeroImage } from "@/components/hero/HeroImage";
 import { HOME_CONTENT } from "@/content/home.content";
-import { HomeHeroIntro } from "./components/HeroIntro";
+import { HomeHero } from "./components/HeroIntro";
 import { FindUs } from "./components/FindUs";
 import { NeedSupport } from "./components/NeedSupport";
-import { useNavigate } from "react-router-dom";
 import { BuildingFundBanner } from "@/components/buildingFundBanner/BuildingFundBanner";
 import { trackEvent } from "@/app/analytics/ga";
 
@@ -18,17 +16,13 @@ export const HomePage = () => {
     <Page>
       <BuildingFundBanner />
 
-      <HeroImage image={homeHero} />
+      <HomeHero
+        title={HOME_CONTENT.hero.title}
+        statement={HOME_CONTENT.hero.statement}
+        image={homeHero}
+      />
 
-      <Section variant="default" maxWidth="md">
-        <HomeHeroIntro
-          title={HOME_CONTENT.hero.title}
-          subText={HOME_CONTENT.hero.statement}
-          logo={logo}
-        />
-      </Section>
-
-      <Section variant="dark">
+      <Section variant="green">
         <NeedSupport
           title={HOME_CONTENT.needSupport.title}
           description={HOME_CONTENT.needSupport.description}
@@ -40,7 +34,7 @@ export const HomePage = () => {
         />
       </Section>
 
-      <Section variant="default" maxWidth="xl">
+      <Section>
         <FindUs title={HOME_CONTENT.findUs.title} coordinates={HOME_CONTENT.findUs.location} />
       </Section>
     </Page>

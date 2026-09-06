@@ -5,9 +5,15 @@ type SectionProps = {
   children: React.ReactNode;
   maxWidth?: "xs" | "sm" | "md" | "lg" | "xl";
   variant?: SectionVariant;
+  compact?: boolean;
 };
 
-export const Section = ({ children, maxWidth = "lg", variant = "default" }: SectionProps) => {
+export const Section = ({
+  children,
+  maxWidth = "lg",
+  variant = "default",
+  compact = false,
+}: SectionProps) => {
   return (
     <Box
       component="section"
@@ -15,7 +21,8 @@ export const Section = ({ children, maxWidth = "lg", variant = "default" }: Sect
         width: "100%",
         bgcolor: sectionBg[variant],
         color: sectionText[variant],
-        py: { xs: 4, md: 10 },
+        pt: compact ? { xs: 5, md: 8 } : { xs: 7, md: 11 },
+        pb: compact ? { xs: 6, md: 9 } : { xs: 8, md: 12 },
       }}
     >
       <Container maxWidth={maxWidth}>{children}</Container>

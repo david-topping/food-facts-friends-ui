@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { Alert, Box, Stack, Typography } from "@mui/material";
+import { Alert, Box, Card, Stack, Typography } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
 
 import { stripePromise } from "@/stripe/stripe";
 import { elementsOptions } from "@/stripe/elementsOptions";
 import { useCreateDonation } from "@/hooks/useCreateDonation";
 import { trackEvent } from "@/app/analytics/ga";
+import { tokens } from "@/theme/tokens";
 
 import { DonationDetailsForm } from "./DonationDetailsForm";
+import { DonationSummary } from "./DonationSummary";
 import { StripePaymentForm } from "./StripePaymentForm";
 import { setPendingDonation } from "../pendingDonation";
 import type { DonationDetails } from "./donation.types";
@@ -16,7 +18,6 @@ type FinancialDonationSectionProps = {
   content: { title: string };
 };
 
-const CONTENT_MAX_WIDTH = 520;
 const CURRENCY = "GBP";
 
 export function FinancialDonationSection({ content }: FinancialDonationSectionProps) {
@@ -44,10 +45,7 @@ export function FinancialDonationSection({ content }: FinancialDonationSectionPr
   }, [isPaymentStep, donationData]);
 
   const scrollToTopOfSection = () => {
-    sectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const handleDetailsSubmit = async (data: DonationDetails) => {
@@ -79,40 +77,52 @@ export function FinancialDonationSection({ content }: FinancialDonationSectionPr
   };
 
   return (
-    <Stack ref={sectionRef} alignItems="center" width="100%" spacing={4}>
-      <Typography variant="h4" align="center">
-        {content.title}
-      </Typography>
-
-      <Box sx={{ width: "100%", maxWidth: CONTENT_MAX_WIDTH }}>
-        {isDetailsStep && (
-          <Stack spacing={2}>
-            {error && <Alert severity="error">{error}</Alert>}
-
-            <DonationDetailsForm
-              loading={loading}
-              initialValues={donationData ?? undefined}
-              onSubmit={handleDetailsSubmit}
-            />
+    <Stack ref={sectionRef} spacing={3} sx={{ width: "100%", maxWidth: { xs: 560, md: 900 } }}>
+      {isDetailsStep && (
+        <Card sx={{ p: { xs: 3, md: 4 }, boxShadow: tokens.shadow.lg }}>
+          <Stack spacing={0.5} sx={{ mb: 3 }}>
+            <Typography variant="overline" sx={{ color: tokens.color.eyebrow }}>
+              Give money
+            </Typography>
+            <Typography variant="h4" component="h2">
+              {content.title}
+            </Typography>
           </Stack>
-        )}
 
-        {isPaymentStep && (
-          <Box
-            sx={{
-              width: "100%",
-              minHeight: 420,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
+          <DonationDetailsForm
+            loading={loading}
+            initialValues={donationData ?? undefined}
+            onSubmit={handleDetailsSubmit}
+          />
+        </Card>
+      )}
+
+      {isPaymentStep && (
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1fr) 240px" },
+            gap: { xs: 3, md: 5 },
+            alignItems: "start",
+          }}
+        >
+          <Card sx={{ p: { xs: 3, md: 4 }, boxShadow: tokens.shadow.lg }}>
             <Elements stripe={stripePromise} options={elementsOptions(clientSecret)}>
               <StripePaymentForm amount={donationData.amount} />
             </Elements>
+          </Card>
+
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
+            <DonationSummary amount={donationData.amount} giftAid={donationData.giftAid} />
           </Box>
-        )}
-      </Box>
+        </Box>
+      )}
     </Stack>
   );
 }
