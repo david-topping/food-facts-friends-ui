@@ -18,4 +18,5 @@ export const giftAidDetailsSchema = z.object({
   country: z.string().trim().min(1, "Country is required"),
 });
 
-export type GiftAidDetailsSchema = z.infer<typeof giftAidDetailsSchema>;
+/** Validated Gift Aid details. `addressLine2` is optional. */
+export type GiftAidDetails = z.infer<typeof giftAidDetailsSchema>;

@@ -1,14 +1,5 @@
 import { appConfig } from "@/config/appConfig";
-
-export type GiftAidDetails = {
-  firstName: string;
-  lastName: string;
-  addressLine1: string;
-  addressLine2?: string;
-  city: string;
-  postcode: string;
-  country: string;
-};
+import type { GiftAidDetails } from "@/features/donation/components/donation.types";
 
 export type CreateDonationRequest =
   | {

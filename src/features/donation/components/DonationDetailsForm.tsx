@@ -9,10 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 
+import { zodToFieldErrors } from "@/helpers/zodToFieldErrors";
 import { donationDetailsFormSchema, PRESET_AMOUNTS } from "./DonationDetailsForm.schema";
-import type { DonationDetails } from "./donation.types";
-import type { GiftAidDetailsValues } from "./GiftAidDetailsFields";
+import type { DonationDetails, GiftAidDetailsValues } from "./donation.types";
 import { GiftAidDetailsFields } from "./GiftAidDetailsFields";
+
+type FieldErrors = Partial<Record<"amount" | "email", string>>;
+type GiftAidErrors = Partial<Record<keyof GiftAidDetailsValues, string>>;
 
 type DonationDetailsFormProps = {
   onSubmit: (data: DonationDetails) => void;
@@ -49,7 +52,8 @@ export function DonationDetailsForm({
     ...(initialValues.giftAid === true ? initialValues.giftAidDetails : {}),
   }));
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [giftAidErrors, setGiftAidErrors] = useState<GiftAidErrors>({});
 
   const selectedPreset = PRESET_AMOUNTS.find((v) => String(v) === amountInput);
 
@@ -61,37 +65,27 @@ export function DonationDetailsForm({
     const result = donationDetailsFormSchema.safeParse(payload);
 
     if (!result.success) {
-      const newErrors: Record<string, string> = {};
-
-      for (const issue of result.error.issues) {
-        const path = issue.path.join(".");
-        newErrors[path] = issue.message;
-      }
-
-      setErrors(newErrors);
+      setErrors(zodToFieldErrors<"amount" | "email">(result.error));
+      setGiftAidErrors(
+        giftAid
+          ? zodToFieldErrors<keyof GiftAidDetailsValues>(result.error, ["giftAidDetails"])
+          : {},
+      );
       return;
     }
 
     setErrors({});
+    setGiftAidErrors({});
     onSubmit(result.data);
   };
 
-  const giftAidErrors: Record<string, string> = {};
-  Object.keys(errors).forEach((key) => {
-    if (key.startsWith("giftAidDetails.")) {
-      const fieldName = key.replace("giftAidDetails.", "");
-      giftAidErrors[fieldName] = errors[key];
-    }
-  });
-
-  const clearError = (field: string) => {
-    if (errors[field]) {
-      setErrors((prev) => {
-        const next = { ...prev };
-        delete next[field];
-        return next;
-      });
-    }
+  const clearError = (field: keyof FieldErrors) => {
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
   };
 
   return (
@@ -201,12 +195,10 @@ export function DonationDetailsForm({
           values={giftAidDetails}
           onChange={(updated) => {
             setGiftAidDetails(updated);
-            Object.keys(updated).forEach((key) => {
-              clearError(`giftAidDetails.${key}`);
-            });
+            setGiftAidErrors({});
           }}
           errors={giftAidErrors}
-          touched={Object.keys(errors).length > 0}
+          touched={Object.keys(giftAidErrors).length > 0}
         />
       )}
 
