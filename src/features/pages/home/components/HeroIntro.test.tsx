@@ -1,16 +1,18 @@
 import { renderWithProviders, screen } from "@/test/utils";
-import { HomeHeroIntro } from "./HeroIntro";
+import { HomeHero } from "./HeroIntro";
 
-describe("HomeHeroIntro", () => {
-  it("renders the title, statement and logo", () => {
+describe("HomeHero", () => {
+  it("renders the title, statement and calls to action", () => {
     renderWithProviders(
-      <HomeHeroIntro title="Food Facts Friends" subText="A community hub." logo="/logo.webp" />,
+      <HomeHero title="Food Facts Friends" statement="A community hub." image="/hero.webp" />,
     );
 
-    expect(screen.getAllByRole("heading", { name: "Food Facts Friends" }).length).toBeGreaterThan(
-      0,
+    expect(screen.getByRole("heading", { name: "Food Facts Friends" })).toBeInTheDocument();
+    expect(screen.getByText("A community hub.")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /how to donate/i })).toHaveAttribute("href", "/donate");
+    expect(screen.getByRole("link", { name: /what we offer/i })).toHaveAttribute(
+      "href",
+      "/services",
     );
-    expect(screen.getAllByText("A community hub.").length).toBeGreaterThan(0);
-    expect(screen.getAllByRole("img", { name: /logo/i }).length).toBeGreaterThan(0);
   });
 });

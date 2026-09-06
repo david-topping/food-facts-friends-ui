@@ -1,15 +1,17 @@
-export type SectionVariant = "default" | "light" | "main" | "dark";
+import { tokens } from "./tokens";
+
+export type SectionVariant = "default" | "paper" | "green" | "forest";
 
 export const sectionBg: Record<SectionVariant, string> = {
   default: "background.default",
-  light: "secondary.light",
-  main: "secondary.main",
-  dark: "primary.main",
+  paper: tokens.color.warmPaper,
+  green: tokens.color.greenTint,
+  forest: "primary.main",
 };
 
 export const sectionText: Record<SectionVariant, string> = {
   default: "text.primary",
-  light: "text.primary",
-  main: "text.primary",
-  dark: "primary.contrastText",
+  paper: "text.primary",
+  green: tokens.color.forest,
+  forest: "primary.contrastText",
 };

@@ -14,9 +14,13 @@ const supporterLogos = Object.values(
 export const SupportersPage = () => {
   return (
     <Page>
-      <HeroText title={SUPPORTERS_CONTENT.hero.title} subtitle={SUPPORTERS_CONTENT.hero.subTitle} />
+      <HeroText
+        eyebrow="Thank you"
+        title={SUPPORTERS_CONTENT.hero.title}
+        subtitle={SUPPORTERS_CONTENT.hero.subTitle}
+      />
 
-      <Section>
+      <Section variant="paper">
         <SupportersGallery logos={supporterLogos} />
       </Section>
     </Page>

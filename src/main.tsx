@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "@fontsource-variable/newsreader";
+import "@fontsource-variable/hanken-grotesk";
 import App from "./app/App";
 import { ThemeProvider } from "./app/providers/ThemeProvider";
 import { initGA } from "./app/analytics/ga";

@@ -1,8 +1,9 @@
-import { Box, IconButton, Slide, Modal } from "@mui/material";
+import { Box, Button, IconButton, Slide, Modal, Stack } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { APP_ROUTES } from "@/routes/routes";
 import { NavLink } from "./NavLink";
-import { useLocation } from "react-router-dom";
+import { Wordmark } from "./Wordmark";
 
 type MobileMenuOverlayProps = {
   open: boolean;
@@ -23,31 +24,42 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             zIndex: 1300,
             display: "flex",
             flexDirection: "column",
-            p: 2.5,
+            p: 3,
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 4 }}>
-            <IconButton onClick={onClose} sx={{ color: "primary.contrastText" }}>
-              <CloseIcon sx={{ fontSize: "2.5rem" }} />
+          <Box
+            sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 6 }}
+          >
+            <Wordmark size="sm" onClick={onClose} />
+            <IconButton onClick={onClose} aria-label="close menu" sx={{ color: "#FFFFFF" }}>
+              <CloseIcon sx={{ fontSize: "2rem" }} />
             </IconButton>
           </Box>
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 7 }}>
-            {APP_ROUTES.filter((r) => r.showInNav).map((route) => {
-              const isActive = pathname === route.path;
+          <Stack spacing={3.5}>
+            {APP_ROUTES.filter((r) => r.showInNav).map((route) => (
+              <NavLink
+                key={route.path}
+                to={route.path}
+                label={route.label}
+                onClick={onClose}
+                variant="h4"
+                active={pathname === route.path}
+              />
+            ))}
+          </Stack>
 
-              return (
-                <NavLink
-                  key={route.path}
-                  to={route.path}
-                  label={route.label}
-                  onClick={onClose}
-                  variant="h5"
-                  active={isActive}
-                />
-              );
-            })}
-          </Box>
+          <Button
+            component={RouterLink}
+            to="/donate"
+            onClick={onClose}
+            variant="contained"
+            color="accent"
+            size="large"
+            sx={{ mt: "auto", borderRadius: 999 }}
+          >
+            Donate
+          </Button>
         </Box>
       </Slide>
     </Modal>

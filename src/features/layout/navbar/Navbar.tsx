@@ -2,6 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
+import { tokens } from "@/theme/tokens";
 
 type NavbarProps = {
   isCollapsed: boolean;
@@ -10,16 +11,13 @@ type NavbarProps = {
 
 export function Navbar({ isCollapsed, onMenuOpen }: NavbarProps) {
   return (
-    <AppBar position="sticky" elevation={0}>
-      <Toolbar
-        sx={{
-          minHeight: 100,
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        {!isCollapsed && <DesktopNav />}
-        {isCollapsed && <MobileNav onMenuOpen={onMenuOpen} />}
+    <AppBar
+      position="sticky"
+      elevation={0}
+      sx={{ borderBottom: `1px solid ${tokens.color.forestDark}` }}
+    >
+      <Toolbar sx={{ minHeight: { xs: 64, md: 76 }, display: "flex", alignItems: "center" }}>
+        {isCollapsed ? <MobileNav onMenuOpen={onMenuOpen} /> : <DesktopNav />}
       </Toolbar>
     </AppBar>
   );

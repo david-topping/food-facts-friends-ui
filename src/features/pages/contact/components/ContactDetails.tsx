@@ -1,8 +1,9 @@
-import { Stack, Box, Typography, Link, Divider } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Box, Divider, Link, Stack, Typography } from "@mui/material";
+import EmailIcon from "@mui/icons-material/EmailOutlined";
+import PhoneIcon from "@mui/icons-material/PhoneOutlined";
+import LocationOnIcon from "@mui/icons-material/LocationOnOutlined";
+import type { ReactNode } from "react";
+import { tokens } from "@/theme/tokens";
 
 type Props = {
   name: string;
@@ -12,58 +13,60 @@ type Props = {
   address: string;
 };
 
+function Row({ icon, label, children }: { icon: ReactNode; label: string; children: ReactNode }) {
+  return (
+    <Stack direction="row" spacing={2} alignItems="flex-start">
+      <Box
+        sx={{
+          width: 40,
+          height: 40,
+          flexShrink: 0,
+          borderRadius: `${tokens.radius.md}px`,
+          bgcolor: tokens.color.greenTint,
+          color: tokens.color.forest,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {icon}
+      </Box>
+      <Box>
+        <Typography
+          variant="overline"
+          sx={{ color: tokens.color.eyebrow, display: "block", mb: 0.25 }}
+        >
+          {label}
+        </Typography>
+        {children}
+      </Box>
+    </Stack>
+  );
+}
+
 export function ContactDetails({ name, role, email, phone, address }: Props) {
   return (
-    <Stack spacing={4}>
+    <Stack spacing={3.5}>
       <Box>
-        <Stack direction="row" spacing={2} alignItems="center">
-          <PersonIcon color="primary" fontSize="large" />
-          <Box>
-            <Typography variant="h5" fontWeight={600}>
-              {name}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {role}
-            </Typography>
-          </Box>
-        </Stack>
+        <Typography variant="h4" component="h2">
+          {name}
+        </Typography>
+        <Typography color="text.secondary">{role}</Typography>
       </Box>
 
       <Divider />
 
-      <Stack direction="row" spacing={2} alignItems="center">
-        <EmailIcon color="primary" fontSize="large" />
-        <Box>
-          <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>
-            Email
-          </Typography>
-          <Link href={`mailto:${email}`} underline="hover">
-            {email}
-          </Link>
-        </Box>
-      </Stack>
+      <Row icon={<EmailIcon fontSize="small" />} label="Email">
+        <Link href={`mailto:${email}`}>{email}</Link>
+      </Row>
 
-      <Stack direction="row" spacing={2} alignItems="center">
-        <PhoneIcon color="primary" fontSize="large" />
-        <Box>
-          <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>
-            Phone
-          </Typography>
-          <Link href={`tel:${phone.replace(/\s/g, "")}`} underline="hover">
-            {phone}
-          </Link>
-        </Box>
-      </Stack>
+      <Row icon={<PhoneIcon fontSize="small" />} label="Phone">
+        <Link href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</Link>
+      </Row>
 
-      <Stack direction="row" spacing={2} alignItems="flex-start">
-        <LocationOnIcon color="primary" fontSize="large" />
-        <Box>
-          <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>
-            Address
-          </Typography>
-          <Typography>{address}</Typography>
-        </Box>
-      </Stack>
+      <Row icon={<LocationOnIcon fontSize="small" />} label="Address">
+        <Typography>{address}</Typography>
+      </Row>
     </Stack>
   );
 }

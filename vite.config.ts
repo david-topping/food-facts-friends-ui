@@ -29,6 +29,7 @@ export default defineConfig({
       VITE_GOOGLE_MAPS_API_KEY: "test-maps-key",
       VITE_STRIPE_PUBLISHABLE_KEY: "pk_test_00000",
       VITE_FFF_API_BASE_URL: "http://api.test",
+      VITE_FORCE_COOKIE_BANNER: "false",
     },
     coverage: {
       provider: "v8",

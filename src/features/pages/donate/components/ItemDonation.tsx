@@ -1,4 +1,5 @@
-import { Stack, Typography, Paper, Divider, Box } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
+import { SectionHeading } from "@/components/sectionHeading/SectionHeading";
 
 type ItemDonationProps = {
   content: {
@@ -14,55 +15,30 @@ type ItemDonationProps = {
 
 export function ItemDonation({ content }: ItemDonationProps) {
   return (
-    <Stack spacing={4} alignItems="center" sx={{ width: "100%" }}>
-      <Stack spacing={2} alignItems="center">
-        <Typography variant="h2" align="center">
-          {content.title}
-        </Typography>
+    <Stack spacing={{ xs: 4, md: 5 }} sx={{ width: "100%" }}>
+      <SectionHeading eyebrow="Give in person" title={content.title} intro={content.note} />
 
-        <Typography align="center" maxWidth={720}>
-          {content.note}
-        </Typography>
-      </Stack>
-
-      <Paper
-        elevation={3}
+      <Box
         sx={{
-          width: "100%",
-          maxWidth: 1000,
-          p: { xs: 3, md: 5 },
-          borderRadius: 3,
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+          columnGap: { md: 6 },
+          rowGap: 4,
         }}
       >
-        <Stack spacing={4}>
-          {content.categories.map((category, index) => (
-            <Box key={category.title}>
-              <Typography variant="h5" gutterBottom>
-                {category.title}
-              </Typography>
-
-              <Stack direction="row" flexWrap="wrap" gap={1.5}>
-                {category.items.map((item) => (
-                  <Typography
-                    key={item}
-                    variant="body2"
-                    sx={{
-                      backgroundColor: "action.hover",
-                      px: 1.5,
-                      py: 0.75,
-                      borderRadius: 1,
-                    }}
-                  >
-                    {item}
-                  </Typography>
-                ))}
-              </Stack>
-
-              {index < content.categories.length - 1 && <Divider sx={{ mt: 3 }} />}
+        {content.categories.map((category) => (
+          <Stack key={category.title} spacing={1.5}>
+            <Typography variant="h5" component="h3">
+              {category.title}
+            </Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+              {category.items.map((item) => (
+                <Chip key={item} label={item} variant="outlined" size="small" />
+              ))}
             </Box>
-          ))}
-        </Stack>
-      </Paper>
+          </Stack>
+        ))}
+      </Box>
     </Stack>
   );
 }

@@ -46,7 +46,14 @@ export function StripePaymentForm({ amount }: { amount: number }) {
       )}
 
       <Box sx={{ mt: 2, pt: 1.5, flexShrink: 0 }}>
-        <Button type="submit" variant="contained" fullWidth disabled={loading} size="large">
+        <Button
+          type="submit"
+          variant="contained"
+          color="accent"
+          fullWidth
+          disabled={loading}
+          size="large"
+        >
           {loading ? "Processing…" : `Donate £${amount}`}
         </Button>
       </Box>

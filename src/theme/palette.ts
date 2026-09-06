@@ -1,37 +1,46 @@
 import type { PaletteOptions } from "@mui/material/styles";
+import { tokens } from "./tokens";
 
 export const palette: PaletteOptions = {
   mode: "light",
 
   primary: {
-    main: "#324D3E",
-    dark: "#2B4336",
-    light: "#728A6E",
-    contrastText: "#ffffff",
+    main: tokens.color.forest,
+    dark: tokens.color.forestDark,
+    light: tokens.color.forestLight,
+    contrastText: tokens.color.bone,
   },
 
   secondary: {
-    main: "#8EA48B",
-    light: "#D2DED0",
-    dark: "#6F8A74",
-    contrastText: "#1F2F29",
+    main: "#7E947B",
+    light: tokens.color.greenTint,
+    dark: "#63795F",
+    contrastText: tokens.color.forest,
+  },
+
+  accent: {
+    main: tokens.color.accent,
+    dark: tokens.color.accentHover,
+    light: tokens.color.accentTint,
+    contrastText: "#FFFFFF",
   },
 
   background: {
-    default: "#F3F7F4",
-    paper: "#FFFFFF",
+    default: tokens.color.bone,
+    paper: tokens.color.paper,
   },
 
   text: {
-    primary: "#1F2F29",
-    secondary: "#2e5441ff",
+    primary: tokens.color.ink,
+    secondary: tokens.color.inkMuted,
+    disabled: tokens.color.inkFaint,
   },
 
-  divider: "rgba(0, 0, 0, 0.08)",
+  divider: tokens.color.hairline,
 
   action: {
-    hover: "rgba(50, 77, 62, 0.08)",
-    selected: "rgba(50, 77, 62, 0.16)",
-    disabledBackground: "rgba(0,0,0,0.04)",
+    hover: "rgba(44, 70, 62, 0.06)",
+    selected: "rgba(44, 70, 62, 0.12)",
+    disabledBackground: "rgba(35, 40, 35, 0.06)",
   },
 };

@@ -10,19 +10,23 @@ import { ItemDonationInformation } from "./components/ItemDonationInformation";
 export const DonatePage = () => {
   return (
     <Page>
-      <HeroText title={DONATE_CONTENT.hero.title} subtitle={DONATE_CONTENT.hero.subTitle} />
+      <HeroText
+        eyebrow="Donate"
+        title={DONATE_CONTENT.hero.title}
+        subtitle={DONATE_CONTENT.hero.subTitle}
+      />
 
-      <Section maxWidth="sm">
+      <Section compact>
         <FinancialDonationSection content={DONATE_CONTENT.financialDonation} />
       </Section>
 
-      <Section variant="dark">
-        <Reveal direction="left">
+      <Section variant="paper">
+        <Reveal>
           <ItemDonation content={DONATE_CONTENT.itemDonation} />
         </Reveal>
       </Section>
 
-      <Section>
+      <Section compact>
         <Reveal>
           <ItemDonationInformation description={DONATE_CONTENT.itemDonation.beforeDonating} />
         </Reveal>

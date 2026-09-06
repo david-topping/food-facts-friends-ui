@@ -1,7 +1,8 @@
-import Box from "@mui/material/Box";
-import { useLocation } from "react-router-dom";
+import { Box, Button } from "@mui/material";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { APP_ROUTES } from "@/routes/routes";
 import { NavLink } from "./NavLink";
+import { Wordmark } from "./Wordmark";
 
 export function DesktopNav() {
   const { pathname } = useLocation();
@@ -12,19 +13,31 @@ export function DesktopNav() {
       sx={{
         flexGrow: 1,
         display: "flex",
-        justifyContent: "center",
-        gap: { xs: 3, md: 7 },
+        alignItems: "center",
+        justifyContent: "space-between",
       }}
     >
-      {navRoutes.map((route) => (
-        <NavLink
-          key={route.path}
-          to={route.path}
-          label={route.label}
-          variant="h6"
-          active={pathname === route.path}
-        />
-      ))}
+      <Wordmark />
+
+      <Box sx={{ display: "flex", alignItems: "center", gap: { md: 3.5, lg: 4.5 } }}>
+        {navRoutes.map((route) => (
+          <NavLink
+            key={route.path}
+            to={route.path}
+            label={route.label}
+            active={pathname === route.path}
+          />
+        ))}
+        <Button
+          component={RouterLink}
+          to="/donate"
+          variant="contained"
+          color="accent"
+          sx={{ borderRadius: 999, px: 2.5 }}
+        >
+          Donate
+        </Button>
+      </Box>
     </Box>
   );
 }
