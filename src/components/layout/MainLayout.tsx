@@ -1,6 +1,6 @@
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import { Navbar } from "@/features/layout/navbar/Navbar";
 import { MobileMenuOverlay } from "@/features/layout/navbar/MenuOverlay";
@@ -9,6 +9,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { AnalyticsListener } from "@/app/analytics/AnalyticsListener";
 import { CookieBanner } from "@/components/cookieBanner/CookieBanner";
 import { useCookieConsent } from "@/components/cookieBanner/useCookieConsent";
+import { PageFallback } from "@/components/layout/PageFallback";
 
 export function MainLayout() {
   const isMobile = useIsMobile();
@@ -27,7 +28,9 @@ export function MainLayout() {
 
         <MobileMenuOverlay open={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
-        <Outlet />
+        <Suspense fallback={<PageFallback />}>
+          <Outlet />
+        </Suspense>
         <Footer />
       </Box>
 
