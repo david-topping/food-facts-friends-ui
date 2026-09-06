@@ -2,6 +2,7 @@ import { Stack, IconButton } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import type { SvgIconComponent } from "@mui/icons-material";
 
 type Props = {
   facebookUrl?: string;
@@ -16,40 +17,28 @@ export function SocialMediaIcons({
   instagramUrl,
   iconColor = "primary.contrastText",
 }: Props) {
+  const links: { label: string; url?: string; Icon: SvgIconComponent }[] = [
+    { label: "Facebook", url: facebookUrl, Icon: FacebookIcon },
+    { label: "LinkedIn", url: linkedinUrl, Icon: LinkedInIcon },
+    { label: "Instagram", url: instagramUrl, Icon: InstagramIcon },
+  ];
+
   return (
     <Stack direction="row" spacing={1}>
-      {facebookUrl && (
-        <IconButton
-          component="a"
-          href={facebookUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ color: iconColor }}
-        >
-          <FacebookIcon />
-        </IconButton>
-      )}
-      {linkedinUrl && (
-        <IconButton
-          component="a"
-          href={linkedinUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ color: iconColor }}
-        >
-          <LinkedInIcon />
-        </IconButton>
-      )}
-      {instagramUrl && (
-        <IconButton
-          component="a"
-          href={instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ color: iconColor }}
-        >
-          <InstagramIcon />
-        </IconButton>
+      {links.map(({ label, url, Icon }) =>
+        url ? (
+          <IconButton
+            key={label}
+            component="a"
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            sx={{ color: iconColor }}
+          >
+            <Icon />
+          </IconButton>
+        ) : null,
       )}
     </Stack>
   );

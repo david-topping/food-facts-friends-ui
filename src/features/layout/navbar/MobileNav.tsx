@@ -1,26 +1,27 @@
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Link as RouterLink } from "react-router-dom";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import LogoGrey from "@/assets/images/brand/logo_grey.webp";
-import { useNavigate } from "react-router-dom";
 
 type MobileNavProps = {
   onMenuOpen?: () => void;
 };
-export function MobileNav({ onMenuOpen }: MobileNavProps) {
-  const navigate = useNavigate();
 
+export function MobileNav({ onMenuOpen }: MobileNavProps) {
   return (
     <>
       <Box
+        component={RouterLink}
+        to="/"
+        aria-label="Food Facts Friends home"
         sx={{
           position: "absolute",
           left: "50%",
           transform: "translateX(-50%)",
-          cursor: "pointer",
+          display: "flex",
         }}
-        onClick={() => navigate("/")}
       >
         <BrandLogo src={LogoGrey} size="xs" />
       </Box>

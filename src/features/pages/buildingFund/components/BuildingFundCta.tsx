@@ -1,7 +1,7 @@
-import { Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Reveal } from "@/components/animation/Reveal";
 import { Button } from "@/components/button/Button";
+import { TextBlock } from "@/components/textBlock/TextBlock";
 import { BUILDING_FUND_CONTENT } from "@/content/buildingFund.content";
 
 export function BuildingFundCta() {
@@ -9,11 +9,12 @@ export function BuildingFundCta() {
 
   return (
     <Reveal>
-      <Stack spacing={3} alignItems="center" textAlign="center">
-        <Typography variant="h2">{BUILDING_FUND_CONTENT.cta.title}</Typography>
-
-        <Typography maxWidth="sm">{BUILDING_FUND_CONTENT.cta.description}</Typography>
-
+      <TextBlock
+        title={BUILDING_FUND_CONTENT.cta.title}
+        subtitle={BUILDING_FUND_CONTENT.cta.description}
+        spacing={3}
+        sx={{ maxWidth: "sm", mx: "auto" }}
+      >
         <Button
           size="large"
           variant="contrast"
@@ -21,7 +22,7 @@ export function BuildingFundCta() {
         >
           {BUILDING_FUND_CONTENT.cta.buttonLabel}
         </Button>
-      </Stack>
+      </TextBlock>
     </Reveal>
   );
 }

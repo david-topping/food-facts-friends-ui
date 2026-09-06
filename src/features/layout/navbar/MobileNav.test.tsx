@@ -32,6 +32,8 @@ describe("MobileNav", () => {
     );
 
     expect(screen.getByTestId("pathname")).toHaveTextContent("/start");
+    expect(screen.getByRole("link", { name: /home/i })).toHaveAttribute("href", "/");
+
     await userEvent.click(screen.getByRole("img", { name: /logo/i }));
     expect(screen.getByTestId("pathname")).toHaveTextContent("/");
   });

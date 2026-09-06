@@ -1,12 +1,12 @@
-name: PR Build Check
+name: PR Checks
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
-  pr-build:
-    name: Build Validation
+  checks:
+    name: Lint, Test & Build
     runs-on: ubuntu-latest
 
     steps:

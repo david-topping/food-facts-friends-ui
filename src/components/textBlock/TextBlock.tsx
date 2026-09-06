@@ -5,19 +5,19 @@ type TextBlockProps = {
   title: ReactNode;
   subtitle?: ReactNode;
   titleVariant?: TypographyProps["variant"];
+  titleSx?: TypographyProps["sx"];
   subtitleVariant?: TypographyProps["variant"];
   subtitleColor?: TypographyProps["color"];
   spacing?: StackProps["spacing"];
-  /** Trailing content (a button, stats, etc.) rendered below the copy. */
   children?: ReactNode;
   sx?: StackProps["sx"];
 };
 
-/** Centre-aligned heading + optional supporting line, used across the marketing pages. */
 export function TextBlock({
   title,
   subtitle,
   titleVariant = "h2",
+  titleSx,
   subtitleVariant,
   subtitleColor,
   spacing = 2,
@@ -26,7 +26,9 @@ export function TextBlock({
 }: TextBlockProps) {
   return (
     <Stack spacing={spacing} alignItems="center" textAlign="center" sx={sx}>
-      <Typography variant={titleVariant}>{title}</Typography>
+      <Typography variant={titleVariant} sx={titleSx}>
+        {title}
+      </Typography>
 
       {subtitle != null && (
         <Typography variant={subtitleVariant} color={subtitleColor}>
